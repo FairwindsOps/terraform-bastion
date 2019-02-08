@@ -1,0 +1,19 @@
+fmodule "bastion" {
+
+  source = "git@github.com:reactiveops/terraform-bastion.git"
+
+  bastion_name = "ro-bastion"
+
+  # This can also be set in the shell environment, using TF_VAR_infrastructure_bucket
+  infrastructure_bucket = "customername-infrastructure"
+
+  # THis allows this module to be used multiple times with different Pentagon inventories.
+  infrastructure_bucket_bastion_key = "default/bastion"
+  route53_zone_id                   = "Z38W0WVE3QXRJ5"
+  vpc_id                            = "${module.vpc.aws_vpc_id}"
+  vpc_subnet_ids                    = ["${module.vpc.aws_subnet_public_ids}"]
+
+  # THis uses the admin-vpn SSH key that Pentagon creates.
+  ssh_public_key_file                = "${file("${path.root}/../config/private/admin-vpn.pub")}"
+  unattended_upgrade_email_recipient = "customername@reactiveops.com"
+}
