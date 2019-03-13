@@ -13,6 +13,8 @@ data "template_file" "bastion_user_data" {
     unattended_upgrade_reboot_time        = "${var.unattended_upgrade_reboot_time}"
     unattended_upgrade_email_recipient    = "${var.unattended_upgrade_email_recipient}"
     unattended_upgrade_additional_configs = "${var.unattended_upgrade_additional_configs}"
+
+    remove_root_access = "${var.remove_root_access}"
   }
 }
 

@@ -11,6 +11,7 @@ The Ubuntu 18.04 EC2 instance is configured as follows:
 	* `/var/log/auth.log`
 * A `bastion` host record is added to a configurable Route53 DNS zone for the current public IP address of the bastion. This script is also set to run on boot.
 * Automatic updates are configured, using a configurable time to reboot, and the email address to receive errors.
+* By default sudo access is removed from the ubuntu user unless the `remove_root_access` input is set to "false."
 
 ## Using The Bastion
 ### SSH Access to Kubernetes Nodes
@@ -151,6 +152,14 @@ Description: The number of days to retain logs in the CloudWatch Log Group.
 Type: `string`
 
 Default: `"60"`
+
+#### remove\_root\_access
+
+Description: Whether to remove root access from the ubuntu user. Set this to yes|true|1 to remove root access, or anything else to retain it.
+
+Type: `string`
+
+Default: `"true"`
 
 #### ssh\_cidr\_blocks
 
