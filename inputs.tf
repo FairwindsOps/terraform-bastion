@@ -1,5 +1,5 @@
 variable "bastion_name" {
-  description = "The name of the bastion EC2 instance, CloudWatch Log Group, and the name prefix for other related resources."
+  description = "The name of the bastion EC2 instance, DNS hostname, CloudWatch Log Group, and the name prefix for other related resources."
   default     = "ro-bastion"
 }
 

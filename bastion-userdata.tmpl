@@ -81,13 +81,14 @@ cat <<'EOF' >/usr/local/bin/register-dns
 #!/bin/bash
 
 zone_id="${zone_id}"
+bastion_name="${bastion_name}"
 public_ip=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
 zone_name=$(cli53 list -f csv |grep ${zone_id}|cut -d, -f2)
 
-echo $0 - registering bastion.$${zone_name} to IP $${public_ip} using zone ID $${zone_id}...
+echo $0 - registering $${bastion_name}.$${zone_name} to IP $${public_ip} using zone ID $${zone_id}...
 
 cli53 rrcreate --replace \
-$${zone_name} "bastion 60 A $${public_ip}"
+$${zone_id} "$${bastion_name} 60 A $${public_ip}"
 
 EOF
 chmod +x /usr/local/bin/register-dns
