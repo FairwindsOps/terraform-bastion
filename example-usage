@@ -1,4 +1,4 @@
-fmodule "bastion" {
+module "bastion" {
 
   source = "git@github.com:reactiveops/terraform-bastion.git"
 

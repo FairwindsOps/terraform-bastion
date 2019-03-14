@@ -28,6 +28,12 @@ variable "unattended_upgrade_additional_configs" {
   default     = ""
 }
 
+variable "remove_root_access" {
+  description = "Whether to remove root access from the ubuntu user. Set this to yes|true|1 to remove root access, or anything else to retain it."
+
+  default = "true"
+}
+
 variable "instance_type" {
   description = "The EC2 instance type of the bastion."
   default     = "t2.micro"
