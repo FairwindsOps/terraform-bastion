@@ -4,11 +4,11 @@ variable "bastion_name" {
 }
 
 variable "infrastructure_bucket" {
-  description = "THe S3 bucket used for infrastructure, the INFRASTRUCTURE_BUCKET Pentagon environment variable. This is intended to be set in the environment via `TF_VAR_infrastructure_bucket`"
+  description = "An S3 bucket to store data that should persist on the bastion when it is recycled by the Auto Scaling Group, such as SSH host keys. This can be set in the environment via `TF_VAR_infrastructure_bucket`"
 }
 
 variable "infrastructure_bucket_bastion_key" {
-  description = "The key; sub-directory in $infrastructure_bucket where the bastion will be allowed to read and write. Do not specify a trailing slash. This location is used to store data that should persist on the bastion when it is recycled by the Auto Scaling Group."
+  description = "The key; sub-directory in $infrastructure_bucket where the bastion will be allowed to read and write. Do not specify a trailing slash. This allows sharing an S3 bucket among multiple invocations of this module."
   default     = "bastion"
 }
 
@@ -42,7 +42,7 @@ variable "instance_type" {
 variable "route53_zone_id" {
   # This zone ID is turned into a zone name by the `register-dns` script,
   # which is created by user-data.
-  description = "ID of the ROute53 zone for the bastion to add its `bastion` record."
+  description = "ID of the ROute53 zone for the bastion to add its host record."
 }
 
 variable "log_retention" {
@@ -51,7 +51,7 @@ variable "log_retention" {
 }
 
 variable "vpc_id" {
-  description = "The VPC ID where the bastion and its security group will be created. This must match subnet IDs specified in the `vpc_subnet_ids` variable"
+  description = "The VPC ID where the bastion and its security group will be created. This must match subnet IDs specified in the `vpc_subnet_ids` input."
 }
 
 variable "vpc_subnet_ids" {

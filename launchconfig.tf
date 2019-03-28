@@ -40,6 +40,6 @@ resource "aws_launch_configuration" "bastion" {
     # DO not recreate the Launch Configuration if a newer AMI becomes available.
     # `terrform taint` the Launch Configuration resource to force it to be recreated.
     # In the future we may want to also include user-data in this list.
-    ignore_changes = ["ami"]
+    ignore_changes = ["image_id"]
   }
 }
