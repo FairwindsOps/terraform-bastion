@@ -9,22 +9,23 @@ The Ubuntu 18.04 EC2 instance is configured as follows:
 * The [CloudWatch Logs Agent][] is installed and configured to ship logs from these files:
 	* `/var/log/syslog`
 	* `/var/log/auth.log`
-* A `bastion` host record is added to a configurable Route53 DNS zone for the current public IP address of the bastion. This script is also set to run on boot.
+* A host record, named using the `bastion_name` module input,  is added to a configurable Route53 DNS zone for the current public IP address of the bastion. This happens via a script configured to run on boot.
 * Automatic updates are configured, using a configurable time to reboot, and the email address to receive errors.
 * By default sudo access is removed from the ubuntu user unless the `remove_root_access` input is set to "false."
 
 ## Using The Bastion
 ### SSH Access to Kubernetes Nodes
 
-To proxy SSH connections to Kubernetes nodes through the bastion, add configuration like the following to the top of the `config/local/ssh_config-default` file in your Pentagon inventory. Replace the following information with your own values:
+To proxy SSH connections to Kubernetes nodes through the bastion, add configuration like the following to the top of the `ssh_config` file. Replace the following information with your own values:
 
-* `domain.com` with the same **domain name** that was specified as a Route53 zone ID in the instance of the bastion Terraform module. This is the domain name where the `bastion` host record will have been created by Terraform.
+* `domain.com` with the same **domain name** that was specified as a Route53 zone ID in the instance of the bastion Terraform module. This is the domain name where the bastions host record will have been created during boot.
+* `/path/to/ssh/private/key` with the path to your SSH private key file.
 * `172.20.*.*` with the VPC CIDR.
 
 ```
 # Define options to be used when connecting to the bastion.
 host bastion.domain.com
-  IdentityFile __INFRA_REPO_PATH__/inventory/default/config/private/admin-vpn
+  IdentityFile /path/to/ssh/private/key
   IdentitiesOnly yes
   User ubuntu
 
@@ -32,12 +33,8 @@ host bastion.domain.com
 # You can also add a DNS wildcard to the end of the next line
 # if you use DNS resolution to access Kubernetes nodes.
 host 172.20.*.*
-  ProxyCommand ssh -i __INFRA_REPO_PATH__/inventory/default/config/private/admin-vpn ubuntu@bastion.domain.com -W %h:%p
+  ProxyCommand ssh -i /path/to/ssh/private/key ubuntu@bastion.domain.com -W %h:%p
 ```
-
-Note that the above includes tokens that `pentagon_workon` replaces with real paths in the next step.
-
-Delete the `config/private/ssh_config` file and `pentagon_workon` will re-generate it using the `default` file edited above.
 
 You can now SSH directly to IP addresses within `172.20.0.0/16`, and your connection will be proxied through the bastion.
 
@@ -83,13 +80,13 @@ The following input variables are required:
 
 #### infrastructure\_bucket
 
-Description: THe S3 bucket used for infrastructure, the INFRASTRUCTURE_BUCKET Pentagon environment variable. This is intended to be set in the environment via `TF_VAR_infrastructure_bucket`
+Description: An S3 bucket to store data that should persist on the bastion when it is recycled by the Auto Scaling Group, such as SSH host keys. This can be set in the environment via `TF_VAR_infrastructure_bucket`
 
 Type: `string`
 
 #### route53\_zone\_id
 
-Description: ID of the ROute53 zone for the bastion to add its `bastion` record.
+Description: ID of the ROute53 zone for the bastion to add its host record.
 
 Type: `string`
 
@@ -107,7 +104,7 @@ Type: `string`
 
 #### vpc\_id
 
-Description: The VPC ID where the bastion and its security group will be created. This must match subnet IDs specified in the `vpc_subnet_ids` variable
+Description: The VPC ID where the bastion and its security group will be created. This must match subnet IDs specified in the `vpc_subnet_ids` input.
 
 Type: `string`
 
@@ -123,7 +120,7 @@ The following input variables are optional (have default values):
 
 #### bastion\_name
 
-Description: The name of the bastion EC2 instance, CloudWatch Log Group, and the name prefix for other related resources.
+Description: The name of the bastion EC2 instance, DNS hostname, CloudWatch Log Group, and the name prefix for other related resources.
 
 Type: `string`
 
@@ -131,7 +128,7 @@ Default: `"ro-bastion"`
 
 #### infrastructure\_bucket\_bastion\_key
 
-Description: The key; sub-directory in $infrastructure_bucket where the bastion will be allowed to read and write. Do not specify a trailing slash. This location is used to store data that should persist on the bastion when it is recycled by the Auto Scaling Group.
+Description: The key; sub-directory in $infrastructure_bucket where the bastion will be allowed to read and write. Do not specify a trailing slash. This allows sharing an S3 bucket among multiple invocations of this module.
 
 Type: `string`
 
@@ -192,11 +189,6 @@ Type: `string`
 Default: `"21:30"`
 
 
-## Future To-do Items
+## Contributing
 
-* Perhaps break this ReadMe out into separate documents to make things more readable.
-* Implement the same thing in Google Cloud.
-* If the preferred usage pattern turns out to be SSH forwarding instead of sshuttle:
-	* Add automation around modifying SSH config and KubeConfig to support using the bastion out of the box.
-	* Explore managing the setup / tear-down of SSH forwarding in Pentagon Workstation (exiting the sub shell tears down the SSH fowrard).
-	
+Thank you for your interest in improving this module. Please see [contributing](./CONTRIBUTING.md) for additional information.

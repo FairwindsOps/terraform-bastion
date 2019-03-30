@@ -1,19 +1,24 @@
+# Example usage for this terraform-bastion module.
 module "bastion" {
+  # Replace v0.2.0 below, with a version number from https://github.com/reactiveops/terraform-bastion/releases
+  source = "git@github.com:reactiveops/terraform-bastion.git?ref=v0.2.0"
 
-  source = "git@github.com:reactiveops/terraform-bastion.git"
-
-  bastion_name = "ro-bastion"
+  bastion_name = "kube-bastion"
 
   # This can also be set in the shell environment, using TF_VAR_infrastructure_bucket
-  infrastructure_bucket = "customername-infrastructure"
+  infrastructure_bucket = "CompanyName-kube-infrastructure"
 
-  # THis allows this module to be used multiple times with different Pentagon inventories.
+  # THis allows this module to use the same S3 bucket for multiple invocations.
   infrastructure_bucket_bastion_key = "default/bastion"
-  route53_zone_id                   = "Z38W0WVE3QXRJ5"
-  vpc_id                            = "${module.vpc.aws_vpc_id}"
-  vpc_subnet_ids                    = ["${module.vpc.aws_subnet_public_ids}"]
+  route53_zone_id                   = "Zxxxxxxxxxxxxx"
 
-  # THis uses the admin-vpn SSH key that Pentagon creates.
-  ssh_public_key_file                = "${file("${path.root}/../config/private/admin-vpn.pub")}"
-  unattended_upgrade_email_recipient = "customername@reactiveops.com"
+  # This gets the VPC and subnet IDs from a separate VPC module,
+  # but you can also specify `vpc-xxx` and `subnet-xxx` IDs directly.
+  vpc_id = "${module.vpc.aws_vpc_id}"
+
+  vpc_subnet_ids = ["${module.vpc.aws_subnet_public_ids}"]
+
+  # This uses an SSH public key from the Terraform root module directory.
+  ssh_public_key_file                = "${file("${path.root}/bastion_ssh.pub")}"
+  unattended_upgrade_email_recipient = "you@example.com"
 }
