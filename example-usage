@@ -1,4 +1,7 @@
 # Example usage for this terraform-bastion module.
+# This example does not use all possible module inputs,
+# please see [README.md](./README.md) for descriptions of all inputs.
+
 module "bastion" {
   # Replace v0.2.0 below, with a version number from https://github.com/reactiveops/terraform-bastion/releases
   source = "git@github.com:reactiveops/terraform-bastion.git?ref=v0.2.0"
@@ -21,4 +24,19 @@ module "bastion" {
   # This uses an SSH public key from the Terraform root module directory.
   ssh_public_key_file                = "${file("${path.root}/bastion_ssh.pub")}"
   unattended_upgrade_email_recipient = "you@example.com"
+
+  # Execute additional commands during User Data, for this bastion.
+  additional_user_data = <<EOD
+apt-get update && apt-get install -y zsh
+EOD
+
+  # Create an additional SSH user for Continuous Integration.
+  # The SSH authorized_keys will not allow commands to be run.
+  additional_users = [
+    {
+      login           = "ci"
+      gecos           = "CI access to private Kubernetes API"
+      authorized_keys = "command=\"echo This account is only for CI port forwarding, there is no shell access. Press ENTER when you are ready to disconnect. . .;read junk\" ssh-rsa xxxxx..."
+    },
+  ]
 }
