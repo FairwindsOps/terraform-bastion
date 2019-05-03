@@ -12,6 +12,8 @@ The Ubuntu 18.04 EC2 instance is configured as follows:
 * A host record, named using the `bastion_name` module input,  is added to a configurable Route53 DNS zone for the current public IP address of the bastion. This happens via a script configured to run on boot.
 * Automatic updates are configured, using a configurable time to reboot, and the email address to receive errors.
 * By default sudo access is removed from the ubuntu user unless the `remove_root_access` input is set to "false."
+* Additional EC2 User Data can be executed, for one-off configuration not included in this module.
+* Additional users can be created and populated with their own `authorized_keys` file.
 
 ## Using The Bastion
 ### SSH Access to Kubernetes Nodes
@@ -117,6 +119,26 @@ Type: `list`
 ### Optional Inputs
 
 The following input variables are optional (have default values):
+
+#### additional\_user\_data
+
+Description: Content to be appended to UserData, which is run the first time the bastion EC2 boots.
+
+Type: `string`
+
+Default: `""`
+
+#### additional\_users
+
+Description: Additional users to be created on the bastion. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized_keys will be output to ~/.ssh/authorized_keys using printf - multiple keys can be specified by including \n in the string.
+
+Type: `list`
+
+Default:
+
+```json
+[]
+```
 
 #### bastion\_name
 

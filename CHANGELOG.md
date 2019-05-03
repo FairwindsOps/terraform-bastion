@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.0]
+### Added
+
+* A new `additional_users` module input allows specifying additional SSH users to be created. The available per-user fields are login, gecos (full name), shell, supplemental groups, and SSH authorized\_keys.
+* A new `additional_user-data` input allows specifying content to add toward the end of EC2 User Data. The additional User Data is executed before additional users are added.
+
+### Changed
+
+* The Auto Scaling Group (and its bastion EC2) will now be recreated when there is an update to the Launch Configuration. The new Auto Scaling Group will be created before the current one is deleted. Previously the EC2 would remain untouched, leaving its recycling to operator discretion.
+
+### Fixed
+
+* The Launch Configuration lifecycle block incorrectly specified ignoring `image_id` - a new AMI will not cause the Launch Configuration to be recreated, as originally intended. Recycling the EC2 due to a new AMI should be less necessary as this module enables automatic Ubuntu updates.
+
 ## [0.2.0]
 
 ### Changed

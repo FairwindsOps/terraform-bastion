@@ -121,6 +121,19 @@ Unattended-Upgrade::Mail "${unattended_upgrade_email_recipient}";
 ${unattended_upgrade_additional_configs}
 EOF
 
+# Execute optional additional user data.
+if [ "$${additional_user_data}x" == "x" ] ; then
+  info "Executing additional_user_data. . ."
+  ${additional_user_data}
+  info "Finished executing additional_user_data. . ."
+fi
+
+# Add optional additional users and authorized_keys,
+# specified in the additional_users module input as a list of maps.
+# This variable is set to the rendering of all additional user templates,
+# which are shell commands to be executed to create and configure the users.
+${additional_user_templates}
+
 # Use a temporary variable to more easily compare the lowercase remove_root_access input.
 rra=$(echo ${remove_root_access} |tr '[:upper:]' '[:lower:]')
 if test $rra == "true" -o $rra == "yes" -o $rra == "1" ; then
