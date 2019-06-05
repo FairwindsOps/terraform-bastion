@@ -17,4 +17,8 @@ resource "aws_security_group" "bastion_ssh" {
   }
 
   vpc_id = "${var.vpc_id}"
+
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 }
