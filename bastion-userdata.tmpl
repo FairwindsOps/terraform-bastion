@@ -7,18 +7,20 @@ function info {
 }
 
 
-# RE: the UCF options below,                                                    
+# RE: the UCF options below,
 # see https://askubuntu.com/questions/146921/how-do-i-apt-get-y-dist-upgrade-without-a-grub-config-prompt
-# Keep the old menu.lst file as it provides EC2 console output.                 
-export UCF_FORCE_CONFFOLD=yes                                                   
-ucf --purge /boot/grub/menu.lst                                                 
+# Keep the old menu.lst file as it provides EC2 console output.
+export UCF_FORCE_CONFFOLD=yes
+export UCF_FORCE_CONFFNEW=yes
+ucf --purge /boot/grub/menu.lst
+export DEBIAN_FRONTEND=noninteractive
 info Updating packages. . .
-apt-get update -y
-apt-get upgrade -y                                                              
-apt-get dist-upgrade -y
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" update
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
 
 info Installing packages needed on the bastion...
-apt-get install -y awscli python unattended-upgrades
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install awscli python unattended-upgrades
 
 info The infra bucket is: ${infrastructure_bucket} and the S3 key is ${infrastructure_bucket_bastion_key}
 

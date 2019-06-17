@@ -5,9 +5,11 @@ data "template_file" "additional_user" {
 
   vars {
     # The additional_users input is a list of maps.
-    user_login               = "${lookup(var.additional_users[count.index], "login")}"
+    user_login = "${lookup(var.additional_users[count.index], "login")}"
+
     # If gecos is nset, default to the user-name.
-    user_gecos               = "${lookup(var.additional_users[count.index], "gecos", lookup(var.additional_users[count.index], "login"))}"
+    user_gecos = "${lookup(var.additional_users[count.index], "gecos", lookup(var.additional_users[count.index], "login"))}"
+
     # If shell is isn't set, default to bash.
     user_shell               = "${lookup(var.additional_users[count.index], "shell", "/bin/bash")}"
     user_supplemental_groups = "${lookup(var.additional_users[count.index], "supplemental_groups", "")}"
