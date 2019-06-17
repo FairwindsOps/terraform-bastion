@@ -12,5 +12,10 @@ The `bastion` Terraform module is intended to manage a bastion instance to provi
 
 The bastion should be created in any availability zone used by the VPC, and should heal in the event of an availability zone outage. SSH logs should additionally be stored outside the bastion, for good auditing practices and to retain logs if the bastion instance is recreated. The bastion should automatically update operating system packages and reboot as needed when a new kernel is installed.
 
-This module should eventually manage a bastion in either Amazon Web Services and Google Compute Cloud.
+## Future DIrection
 
+Future goals of this project include, in no particular order:
+
+* Manage a bastion in Google Cloud:
+* Provide [Cloud DNS](https://cloud.google.com/dns/docs/) as an option to manage the bastion DNS record.
+* Provide [Stackdriver](https://cloud.google.com/logging/) as an option to store logs outside of the bastion instance.
