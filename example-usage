@@ -3,8 +3,8 @@
 # please see [README.md](./README.md) for descriptions of all inputs.
 
 module "bastion" {
-  # Replace v0.2.0 below, with a version number from https://github.com/reactiveops/terraform-bastion/releases
-  source = "git@github.com:reactiveops/terraform-bastion.git?ref=v0.2.0"
+  # Replace v0.2.0 below, with a version number from https://github.com/FairwindsOps/terraform-bastion/releases
+  source = "git@github.com:FairwindsOps/terraform-bastion.git?ref=v0.2.0"
 
   bastion_name = "kube-bastion"
 
