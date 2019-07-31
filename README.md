@@ -140,6 +140,22 @@ Default:
 []
 ```
 
+#### ami\_filter\_value
+
+Description: The filter path for the AMI.
+
+Type: `string`
+
+Default: `"ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"`
+
+#### ami\_owner\_id
+
+Description: The ID of the AMI's owner in AWS. The default is Canonical.
+
+Type: `string`
+
+Default: `"099720109477"`
+
 #### bastion\_name
 
 Description: The name of the bastion EC2 instance, DNS hostname, CloudWatch Log Group, and the name prefix for other related resources.
