@@ -156,6 +156,14 @@ Type: `string`
 
 Default: `"099720109477"`
 
+#### arn\_prefix
+
+Description: The prefix to use for AWS ARNs.
+
+Type: `string`
+
+Default: `"arn:aws"`
+
 #### bastion\_name
 
 Description: The name of the bastion EC2 instance, DNS hostname, CloudWatch Log Group, and the name prefix for other related resources.
