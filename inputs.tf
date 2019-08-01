@@ -89,3 +89,8 @@ variable "ami_filter_value" {
   description = "The filter path for the AMI."
   default     = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
 }
+
+variable "arn_prefix" {
+  description = "The prefix to use for AWS ARNs."
+  default = "arn:aws"
+}
