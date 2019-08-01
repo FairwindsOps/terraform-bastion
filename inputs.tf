@@ -79,3 +79,13 @@ variable "ssh_cidr_blocks" {
   description = "A list of CIDRs allowed to SSH to the bastion."
   default     = ["0.0.0.0/0"]
 }
+
+variable "ami_owner_id" {
+  description = "The ID of the AMI's owner in AWS. The default is Canonical."
+  default     = "099720109477" 
+}
+
+variable "ami_filter_value" {
+  description = "The filter path for the AMI."
+  default     = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
+}
