@@ -7,6 +7,13 @@ function info {
 }
 
 
+info Getting the AWS availability zone and region
+EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+EC2_REGION=`echo "$${EC2_AVAIL_ZONE:0:$${#EC2_AVAIL_ZONE}-1}"`
+info The EC2 region is: $${EC2_REGION}
+info The EC2 availability zone is: $${EC2_AVAIL_ZONE}
+
+
 # RE: the UCF options below,
 # see https://askubuntu.com/questions/146921/how-do-i-apt-get-y-dist-upgrade-without-a-grub-config-prompt
 # Keep the old menu.lst file as it provides EC2 console output.
@@ -25,10 +32,10 @@ apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-conf
 info The infra bucket is: ${infrastructure_bucket} and the S3 key is ${infrastructure_bucket_bastion_key}
 
 info Looking for SSHd host keys to copy from S3. . .
-aws s3 ls s3://${infrastructure_bucket}/${infrastructure_bucket_bastion_key}/sshd/ssh_host_rsa_key >/dev/null
+aws --region $${EC2_REGION} s3 ls s3://${infrastructure_bucket}/${infrastructure_bucket_bastion_key}/sshd/ssh_host_rsa_key >/dev/null
 if [ $? -eq 0 ] ; then
 info Syncing host keys from ${infrastructure_bucket}/${infrastructure_bucket_bastion_key}
- 	aws s3 sync s3://${infrastructure_bucket}/${infrastructure_bucket_bastion_key}/sshd/ /etc/ssh/
+ 	aws s3 --region $${EC2_REGION} sync s3://${infrastructure_bucket}/${infrastructure_bucket_bastion_key}/sshd/ /etc/ssh/
   chmod go= /etc/ssh/ssh_host_*_key
   info Restarting sshd to use new host keys
   systemctl restart ssh
@@ -36,7 +43,7 @@ else
   info Copying host keys to S3, this must be the first ever bastion instance using ${infrastructure_bucket}/${infrastructure_bucket_bastion_key}...
   for n in `ls -c1 /etc/ssh/ssh_host_*`;
   do
-    aws s3 cp $n s3://${infrastructure_bucket}/${infrastructure_bucket_bastion_key}/sshd/
+    aws --region $${EC2_REGION} s3 cp $n s3://${infrastructure_bucket}/${infrastructure_bucket_bastion_key}/sshd/
   done
 fi
 
