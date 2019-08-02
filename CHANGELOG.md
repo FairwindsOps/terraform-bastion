@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Added inputs for the ARN prefix to include support for GovCloud.
 
+### Fixed
+
+* Include the EC2 region when running `aws s3 sync|cp` commands, to accommodate govcloud which requires the region! This fixes exchanging sshd hostkeys with S3 in govcloud.
+
 ## [0.3.2]
 ### Added
 
