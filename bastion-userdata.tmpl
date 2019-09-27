@@ -143,6 +143,29 @@ fi
 # which are shell commands to be executed to create and configure the users.
 ${additional_user_templates}
 
+# run the github-users.sh script from s3
+aws s3 --region $${EC2_REGION} cp s3://${infrastructure_bucket}/${infrastructure_bucket_github_users_script_key} /usr/local/bin/github-users
+info using etag ${infrastructure_bucket_github_users_script_etag}
+chmod +x /usr/local/bin/github-users
+
+info Installing the github-users systemd service
+cat <<EOF >/etc/systemd/system/github-users.service
+[Unit]
+Description=Add all defined github users to the bastion
+
+[Service]
+ExecStart=/usr/local/bin/github-users
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
+EOF
+systemctl daemon-reload
+systemctl enable github-users
+systemctl start github-users
+
 # Use a temporary variable to more easily compare the lowercase remove_root_access input.
 rra=$(echo ${remove_root_access} |tr '[:upper:]' '[:lower:]')
 if test $rra == "true" -o $rra == "yes" -o $rra == "1" ; then
