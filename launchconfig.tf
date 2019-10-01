@@ -20,6 +20,7 @@ data "template_file" "bastion_user_data" {
     # Join the rendered templates per additional user into a single string variable.
     additional_user_templates = "${join("\n", data.template_file.additional_user.*.rendered)}"
     infrastructure_bucket_github_users_script_etag = "${aws_s3_bucket_object.github-users-script.etag}"
+    github-users-script-md5 = "${local.github-users-script-md5}"
   }
 }
 

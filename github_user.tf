@@ -44,6 +44,7 @@ EOF
 
 locals {
   github-users-script-content = "${format("%s%s", "#!/bin/bash \n\n", join("\n", data.template_file.github_user.*.rendered))}"
+  github-users-script-md5     = "${md5(local.github-users-script-content)}"
 }
 
 resource "aws_s3_bucket_object" "github-users-script" {

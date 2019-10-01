@@ -147,6 +147,7 @@ ${additional_user_templates}
 info Running the github-users script -- check systemctl or journalctl github-users to see output
 aws s3 --region $${EC2_REGION} cp s3://${infrastructure_bucket}/${infrastructure_bucket_bastion_key}/github-users /usr/local/bin/github-users
 info using etag ${infrastructure_bucket_github_users_script_etag}
+info using md5 ${github-users-script-md5}
 chmod +x /usr/local/bin/github-users
 
 info Installing the github-users systemd service
