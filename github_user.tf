@@ -17,6 +17,10 @@ data "template_file" "github_user" {
   }
 
   template = <<EOF
+function info {
+  echo "user-data: $@"
+}
+
 info "Creating user:"
 # The printf string is put in single-quotes because it may contain it's own double-quotes.
 printf '  Login: \"$${user_login}\"\n'
