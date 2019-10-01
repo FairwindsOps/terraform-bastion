@@ -12,11 +12,6 @@ variable "infrastructure_bucket_bastion_key" {
   default     = "bastion"
 }
 
-variable "infrastructure_bucket_github_users_script_key" {
- description  = "The script for adding/configuring all defined github users"
- default      = "bastion/github-users.sh"
-}
-
 variable "unattended_upgrade_reboot_time" {
   description = "The time that the bastion should reboot, when necessary, after an an unattended upgrade. This sets the option in /etc/apt/apt.conf.d/50unattended-upgrades"
 

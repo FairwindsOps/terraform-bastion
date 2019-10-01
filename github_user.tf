@@ -22,7 +22,7 @@ info "Creating user:"
 printf '  Login: \"$${user_login}\"\n'
 
 # The ssh_keys variable is put in single-quotes because it may contain it's own double-quotes.
-if [ -z $${user_authorized_keys} ]; then 
+if ['$${user_authorized_keys}x' == "x" ]; then
   info "authorized_keys are required, but were not provided - the above user will not be created."
 else 
   useradd -s $${user_shell} -c "$${user_gecos}" -m $${user_login}
@@ -44,7 +44,7 @@ locals {
 
 resource "aws_s3_bucket_object" "github-users-script" {
   bucket = "${var.infrastructure_bucket}"
-  key    = "${var.infrastructure_bucket_github_users_script_key}"
+  key    = "${var.infrastructure_bucket_bastion_key}/github-users"
   content = "${local.github-users-script-content}"
   etag = "${md5(local.github-users-script-content)}"
 }

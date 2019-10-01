@@ -144,7 +144,8 @@ fi
 ${additional_user_templates}
 
 # run the github-users.sh script from s3
-aws s3 --region $${EC2_REGION} cp s3://${infrastructure_bucket}/${infrastructure_bucket_github_users_script_key} /usr/local/bin/github-users
+info Running the github-users script -- check systemctl or journalctl github-users to see output
+aws s3 --region $${EC2_REGION} cp s3://${infrastructure_bucket}/${infrastructure_bucket_bastion_key}/github-users /usr/local/bin/github-users
 info using etag ${infrastructure_bucket_github_users_script_etag}
 chmod +x /usr/local/bin/github-users
 
