@@ -35,7 +35,7 @@ variable "remove_root_access" {
 }
 
 variable "additional_users" {
-  type        = list(string)
+  type        = list
   description = "Additional users to be created on the bastion. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized_keys will be output to ~/.ssh/authorized_keys using printf - multiple keys can be specified by including \\n in the string."
   default     = []
 }
@@ -66,7 +66,7 @@ variable "vpc_id" {
 }
 
 variable "vpc_subnet_ids" {
-  type        = list(string)
+  type        = list
   description = "A list of subnet IDs where the Auto Scaling Group can place the bastion."
 }
 

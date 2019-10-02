@@ -10,7 +10,7 @@ resource "aws_autoscaling_group" "bastion" {
   min_size             = 1
   max_size             = 1
   desired_capacity     = 1
-  vpc_zone_identifier  = var.vpc_subnet_ids
+  vpc_zone_identifier  = flatten(var.vpc_subnet_ids)
 
   tag {
     key                 = "Name"

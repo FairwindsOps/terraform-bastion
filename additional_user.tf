@@ -2,20 +2,20 @@
 # The below template(s) will be rendered in the bastion-userdata.tmpl template.
 data "template_file" "additional_user" {
   count = length(var.additional_users)
-
+  
   vars = {
     # The additional_users input is a list of maps.
-    user_login = var.additional_users[count.index]["login"]
+    user_login = lookup(var.additional_users[count.index], "login")
     # If gecos is nset, default to the user-name.
     user_gecos = lookup(
       var.additional_users[count.index],
       "gecos",
-      var.additional_users[count.index]["login"],
+      lookup(var.additional_users[count.index], "login"),
     )
     # If shell is isn't set, default to bash.
     user_shell               = lookup(var.additional_users[count.index], "shell", "/bin/bash")
     user_supplemental_groups = lookup(var.additional_users[count.index], "supplemental_groups", "")
-    user_authorized_keys     = var.additional_users[count.index]["authorized_keys"]
+    user_authorized_keys     = lookup(var.additional_users[count.index], "authorized_keys")
   }
 
   template = <<EOF
@@ -36,8 +36,6 @@ else
   chown -R $${user_login}:$${user_login} ~$${user_login}/.ssh
   chmod -R go= ~$${user_login}/.ssh
 fi
-
 EOF
-
 }
 
