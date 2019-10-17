@@ -19,6 +19,8 @@ data "template_file" "bastion_user_data" {
 
     # Join the rendered templates per additional user into a single string variable.
     additional_user_templates = "${join("\n", data.template_file.additional_user.*.rendered)}"
+    infrastructure_bucket_additional_external_users_script_etag = "${aws_s3_bucket_object.additional-external-users-script.etag}"
+    additional-external-users-script-md5 = "${local.additional-external-users-script-md5}"
   }
 }
 
@@ -36,6 +38,7 @@ resource "aws_launch_configuration" "bastion" {
   associate_public_ip_address = "true"
 
   user_data_base64 = "${base64gzip(data.template_file.bastion_user_data.rendered)}"
+
   key_name         = "${aws_key_pair.bastion.id}"
 
   lifecycle {
