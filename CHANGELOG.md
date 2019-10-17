@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.3.4]
 ## Added 
-* A special input specifically for github users has been added under `github_users`. The format of the list is the same as `additional_users`, however this list ends up in a separate script uploaded to S3 and then loaded as a systemd unit in the userdata boot script, to avoid data limitations on the userdata field in cloud config. 
+* A special input for loading lots of SSH user's keys has been added under `additional_external_users`. The format of the list is the same as `additional_users`, however this list ends up in a separate script uploaded to S3 and then loaded as a systemd unit in the userdata boot script, to avoid data limitations on the userdata field in cloud config. This is typically used with a list of github usernames.
 
 ## [0.3.3]
 ### Added

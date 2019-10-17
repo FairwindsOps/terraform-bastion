@@ -1,19 +1,19 @@
-# This template data source is created for each user specified in the github_users module input.
+# This template data source is created for each user specified in the additional_external_users module input.
 # The below template(s) will be rendered in the bastion-userdata.tmpl template.
-data "template_file" "github_user" {
-  count = "${length(var.github_users)}"
+data "template_file" "additional_external_user" {
+  count = "${length(var.additional_external_users)}"
 
   vars {
-    # The github_users input is a list of maps.
-    user_login = "${lookup(var.github_users[count.index], "login")}"
+    # The additional_external_users input is a list of maps.
+    user_login = "${lookup(var.additional_external_users[count.index], "login")}"
 
     # If gecos is nset, default to the user-name.
-    user_gecos = "${lookup(var.github_users[count.index], "gecos", lookup(var.github_users[count.index], "login"))}"
+    user_gecos = "${lookup(var.additional_external_users[count.index], "gecos", lookup(var.additional_external_users[count.index], "login"))}"
 
     # If shell is isn't set, default to bash.
-    user_shell               = "${lookup(var.github_users[count.index], "shell", "/bin/bash")}"
-    user_supplemental_groups = "${lookup(var.github_users[count.index], "supplemental_groups", "")}"
-    user_authorized_keys     = "${lookup(var.github_users[count.index], "authorized_keys")}"
+    user_shell               = "${lookup(var.additional_external_users[count.index], "shell", "/bin/bash")}"
+    user_supplemental_groups = "${lookup(var.additional_external_users[count.index], "supplemental_groups", "")}"
+    user_authorized_keys     = "${lookup(var.additional_external_users[count.index], "authorized_keys")}"
   }
 
   template = <<EOF
@@ -43,13 +43,13 @@ EOF
 }
 
 locals {
-  github-users-script-content = "${format("%s%s", "#!/bin/bash \n\n", join("\n", data.template_file.github_user.*.rendered))}"
-  github-users-script-md5     = "${md5(local.github-users-script-content)}"
+  additional-external-users-script-content = "${format("%s%s", "#!/bin/bash \n\n", join("\n", data.template_file.additional_external_user.*.rendered))}"
+  additional-external-users-script-md5     = "${md5(local.additional-external-users-script-content)}"
 }
 
-resource "aws_s3_bucket_object" "github-users-script" {
+resource "aws_s3_bucket_object" "additional-external-users-script" {
   bucket = "${var.infrastructure_bucket}"
-  key    = "${var.infrastructure_bucket_bastion_key}/github-users"
-  content = "${local.github-users-script-content}"
-  etag = "${md5(local.github-users-script-content)}"
+  key    = "${var.infrastructure_bucket_bastion_key}/additional-external-users"
+  content = "${local.additional-external-users-script-content}"
+  etag = "${md5(local.additional-external-users-script-content)}"
 }

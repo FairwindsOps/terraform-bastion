@@ -40,7 +40,7 @@ EOD
     },
   ]
   # Add additional users using github usernames and their associated public SSH keys (see below config outside of module)
-  github_users = "${data.null_data_source.github_users.*.outputs}"
+  additional_external_users = "${data.null_data_source.github_users.*.outputs}"
 
 }
 

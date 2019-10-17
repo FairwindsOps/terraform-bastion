@@ -5,7 +5,6 @@ resource "aws_autoscaling_group" "bastion" {
   # The Launch Configuration ID is part of the AUto Scalign Group name,
   # to force the ASG and its EC2 to be recreated.
   name = "asg-${aws_launch_configuration.bastion.id}"
-  depends_on = ["aws_s3_bucket_object.github-users-script"]
   launch_configuration = "${aws_launch_configuration.bastion.name}"
   min_size             = 1
   max_size             = 1
