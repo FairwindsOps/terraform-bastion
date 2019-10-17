@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.3.4]
-## Added 
+### Added 
 * A special input for loading lots of SSH user's keys has been added under `additional_external_users`. The format of the list is the same as `additional_users`, however this list ends up in a separate script uploaded to S3 and then loaded as a systemd unit in the userdata boot script, to avoid data limitations on the userdata field in cloud config. This is typically used with a list of github usernames.
 
 ## [0.3.3]
