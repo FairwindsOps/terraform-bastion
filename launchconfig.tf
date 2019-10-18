@@ -3,7 +3,7 @@ data "template_file" "bastion_user_data" {
 
   vars = {
     bastion_name                      = var.bastion_name
-    infrastructure_bucket             = var.infrastructure_bucket
+    infrastructure_bucket             = local.infrastructure_bucket.id
     infrastructure_bucket_bastion_key = var.infrastructure_bucket_bastion_key
     # THe ROute53 zone to add a `bastion` A record.
     zone_id = var.route53_zone_id

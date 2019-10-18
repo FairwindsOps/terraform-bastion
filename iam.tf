@@ -35,7 +35,7 @@ resource "aws_iam_role_policy" "bastion_s3" {
       "s3:ListBucket"
     ],
     "Resource": [
-      "${var.arn_prefix}:s3:::${var.infrastructure_bucket}"
+      "${var.arn_prefix}:s3:::${local.infrastructure_bucket.id}"
     ],
     "Effect": "Allow"
   },
@@ -46,7 +46,7 @@ resource "aws_iam_role_policy" "bastion_s3" {
       "s3:GetObject"
     ],
     "Resource": [
-      "${var.arn_prefix}:s3:::${var.infrastructure_bucket}/${var.infrastructure_bucket_bastion_key}/*"
+      "${var.arn_prefix}:s3:::${local.infrastructure_bucket.id}/${var.infrastructure_bucket_bastion_key}/*"
     ],
     "Effect": "Allow"
   }

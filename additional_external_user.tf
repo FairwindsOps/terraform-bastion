@@ -3,7 +3,7 @@
 data "template_file" "additional_external_user" {
   count = length(var.additional_external_users)
 
-  vars {
+  vars = {
     # The additional_external_users input is a list of maps.
     user_login = lookup(var.additional_external_users[count.index], "login")
 
@@ -48,8 +48,9 @@ locals {
 }
 
 resource "aws_s3_bucket_object" "additional-external-users-script" {
-  bucket  = var.infrastructure_bucket
-  key     = "${var.infrastructure_bucket_bastion_key}/additional-external-users"
-  content = local.additional-external-users-script-content
-  etag    = md5(local.additional-external-users-script-content)
+  provider = "aws.bastion_state"
+  bucket   = local.infrastructure_bucket.id
+  key      = "${var.infrastructure_bucket_bastion_key}/additional-external-users"
+  content  = local.additional-external-users-script-content
+  etag     = md5(local.additional-external-users-script-content)
 }
