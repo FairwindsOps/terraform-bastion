@@ -2,7 +2,7 @@
 # The below template(s) will be rendered in the bastion-userdata.tmpl template.
 data "template_file" "additional_user" {
   count = length(var.additional_users)
-  
+
   vars = {
     # The additional_users input is a list of maps.
     user_login = lookup(var.additional_users[count.index], "login")
