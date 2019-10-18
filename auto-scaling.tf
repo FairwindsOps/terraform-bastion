@@ -7,10 +7,11 @@ resource "aws_autoscaling_group" "bastion" {
   name = "asg-${aws_launch_configuration.bastion.id}"
 
   launch_configuration = aws_launch_configuration.bastion.name
-  min_size             = 1
-  max_size             = 1
-  desired_capacity     = 1
-  vpc_zone_identifier  = flatten(var.vpc_subnet_ids)
+
+  min_size            = 1
+  max_size            = 1
+  desired_capacity    = 1
+  vpc_zone_identifier = flatten(var.vpc_subnet_ids)
 
   tag {
     key                 = "Name"

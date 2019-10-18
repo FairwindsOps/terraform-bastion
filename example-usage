@@ -39,4 +39,38 @@ EOD
       authorized_keys = "command=\"echo This account is only for CI port forwarding, there is no shell access. Press ENTER when you are ready to disconnect. . .;read junk\" ssh-rsa xxxxx..."
     },
   ]
+  # Add additional users using github usernames and their associated public SSH keys (see below config outside of module)
+  additional_external_users = "${data.null_data_source.github_users.*.outputs}"
+
 }
+
+## additional configuration necessary for github_users functionality:
+locals {
+  github_ssh_keys = "${zipmap(var.github_users, data.http.githubkeys.*.body)}"
+}
+
+data "null_data_source" "github_users" {
+  count = "${length(var.github_users)}"
+
+  inputs = {
+    login           = "${element(var.github_users, count.index)}"
+    authorized_keys = "${element(data.http.githubkeys.*.body, count.index)}"
+  }
+}
+
+data "http" "githubkeys" {
+  count = "${length(var.github_users)}"
+
+  url = "https://github.com/${element(var.github_users, count.index)}.keys"
+}
+
+variable "github_users" {
+  type = "list"
+}
+
+## if using the github_users functionality, create a bastion.auto.tfvars that populates the github_users list like this:
+github_users = [
+  "user1",
+  "user2",
+  "user3"
+]

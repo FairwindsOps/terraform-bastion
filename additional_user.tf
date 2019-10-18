@@ -21,11 +21,11 @@ data "template_file" "additional_user" {
   template = <<EOF
 info "Creating user:"
 # The printf string is put in single-quotes because it may contain it's own double-quotes.
-printf '  Login: \"$${user_login}\"\n  Gecos: \"$${user_gecos}\"\n  Shell: \"$${user_shell}\"\n  Supplemental Groups: \"$${user_supplemental_groups}\"\n  Authorized Keys: \"$${user_authorized_keys}\"\n'
+printf '  Login: \"$${user_login}\"\n'
 
 # The ssh_keys variable is put in single-quotes because it may contain it's own double-quotes.
-if [ "$${user_login}x" == "x" -o '$${user_authorized_keys}x' == "x" ] ; then
-  info "Both login and authorized_keys are required - the above user will not be created."
+if ['$${user_authorized_keys}x' == "x" ]; then
+  info "authorized_keys are required, but were not provided - the above user will not be created."
 else
   useradd -s $${user_shell} -c "$${user_gecos}" -m $${user_login}
   [ "$${user_supplemental_groups}x" != "x" ] && usermod -G $${user_supplemental_groups} $${user_login}
