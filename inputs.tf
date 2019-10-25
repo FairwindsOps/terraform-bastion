@@ -7,6 +7,12 @@ variable "infrastructure_bucket" {
   description = "An S3 bucket to store data that should persist on the bastion when it is recycled by the Auto Scaling Group, such as SSH host keys. This can be set in the environment via `TF_VAR_infrastructure_bucket`"
 }
 
+variable "infrastructure_bucket_region" {
+  type        = string
+  description = "The S3 bucket region"
+  default     = null
+}
+
 variable "infrastructure_bucket_bastion_key" {
   description = "The key; sub-directory in $infrastructure_bucket where the bastion will be allowed to read and write. Do not specify a trailing slash. This allows sharing an S3 bucket among multiple invocations of this module."
   default     = "bastion"
@@ -35,7 +41,7 @@ variable "remove_root_access" {
 }
 
 variable "additional_users" {
-  type        = "list"
+  type        = list
   description = "Additional users to be created on the bastion. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized_keys will be output to ~/.ssh/authorized_keys using printf - multiple keys can be specified by including \\n in the string."
   default     = []
 }
@@ -72,7 +78,7 @@ variable "vpc_id" {
 }
 
 variable "vpc_subnet_ids" {
-  type        = "list"
+  type        = list
   description = "A list of subnet IDs where the Auto Scaling Group can place the bastion."
 }
 
@@ -81,14 +87,14 @@ variable "ssh_public_key_file" {
 }
 
 variable "ssh_cidr_blocks" {
-  type        = "list"
+  type        = list(string)
   description = "A list of CIDRs allowed to SSH to the bastion."
   default     = ["0.0.0.0/0"]
 }
 
 variable "ami_owner_id" {
   description = "The ID of the AMI's owner in AWS. The default is Canonical."
-  default     = "099720109477" 
+  default     = "099720109477"
 }
 
 variable "ami_filter_value" {
@@ -98,5 +104,6 @@ variable "ami_filter_value" {
 
 variable "arn_prefix" {
   description = "The prefix to use for AWS ARNs."
-  default = "arn:aws"
+  default     = "arn:aws"
 }
+

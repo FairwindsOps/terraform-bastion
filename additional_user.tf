@@ -1,19 +1,21 @@
 # This template data source is created for each user specified in the additional_users module input.
 # The below template(s) will be rendered in the bastion-userdata.tmpl template.
 data "template_file" "additional_user" {
-  count = "${length(var.additional_users)}"
+  count = length(var.additional_users)
 
-  vars {
+  vars = {
     # The additional_users input is a list of maps.
-    user_login = "${lookup(var.additional_users[count.index], "login")}"
-
+    user_login = lookup(var.additional_users[count.index], "login")
     # If gecos is nset, default to the user-name.
-    user_gecos = "${lookup(var.additional_users[count.index], "gecos", lookup(var.additional_users[count.index], "login"))}"
-
+    user_gecos = lookup(
+      var.additional_users[count.index],
+      "gecos",
+      lookup(var.additional_users[count.index], "login"),
+    )
     # If shell is isn't set, default to bash.
-    user_shell               = "${lookup(var.additional_users[count.index], "shell", "/bin/bash")}"
-    user_supplemental_groups = "${lookup(var.additional_users[count.index], "supplemental_groups", "")}"
-    user_authorized_keys     = "${lookup(var.additional_users[count.index], "authorized_keys")}"
+    user_shell               = lookup(var.additional_users[count.index], "shell", "/bin/bash")
+    user_supplemental_groups = lookup(var.additional_users[count.index], "supplemental_groups", "")
+    user_authorized_keys     = lookup(var.additional_users[count.index], "authorized_keys")
   }
 
   template = <<EOF
@@ -22,7 +24,7 @@ info "Creating user:"
 printf '  Login: \"$${user_login}\"\n'
 
 # The ssh_keys variable is put in single-quotes because it may contain it's own double-quotes.
-if ['$${user_authorized_keys}x' == "x" ]; then
+if [ '$${user_authorized_keys}x' == "x" ]; then
   info "authorized_keys are required, but were not provided - the above user will not be created."
 else
   useradd -s $${user_shell} -c "$${user_gecos}" -m $${user_login}
@@ -34,6 +36,6 @@ else
   chown -R $${user_login}:$${user_login} ~$${user_login}/.ssh
   chmod -R go= ~$${user_login}/.ssh
 fi
-
 EOF
 }
+

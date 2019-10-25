@@ -6,11 +6,12 @@
 resource "aws_cloudwatch_log_group" "bastion" {
   # THe log group uses a static name to retain all logs across EC2 instances
   # that the Auto Scaling Group recycles.
-  name = "${var.bastion_name}"
+  name = var.bastion_name
 
   tags = {
     created_by = "Terraform"
   }
 
-  retention_in_days = "${var.log_retention}"
+  retention_in_days = var.log_retention
 }
+

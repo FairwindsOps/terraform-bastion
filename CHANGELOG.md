@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.4.0]
+## Terraform 0.12 Release
+### Breaking
+* This module now supports Terraform 0.12. Versions <= 0.11.x are no longer supported.
+
+### Added
+* Most terraform files have been updated to 0.12 syntax
+* Added `versions.tf` to ensure compatible providers and tf version
+* Added `infrastructure_bucket_region` input for S3 buckets in different provider regions
+
 ## [0.3.4]
 ### Added 
 * A special input for loading lots of SSH user's keys has been added under `additional_external_users`. The format of the list is the same as `additional_users`, however this list ends up in a separate script uploaded to S3 and then loaded as a systemd unit in the userdata boot script, to avoid data limitations on the userdata field in cloud config. This is typically used with a list of github usernames.
