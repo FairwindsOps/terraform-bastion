@@ -15,6 +15,6 @@ locals {
 }
 
 data "aws_s3_bucket" "infrastructure_bucket" {
-  provider = "aws.bastion_state"
+  provider = aws.bastion_state
   bucket   = var.infrastructure_bucket
 }

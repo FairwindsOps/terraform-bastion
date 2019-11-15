@@ -47,7 +47,7 @@ variable "additional_users" {
 }
 
 variable "additional_external_users" {
-  type        = "list"
+  type        = list
   description = "Additional users to be created on the bastion. Works the same as additional_users, but adds users via a separate systemd unit file. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized_keys will be output to ~/.ssh/authorized_keys using printf - multiple keys can be specified by including \\n in the string."
   default     = []
 }
