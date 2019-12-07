@@ -88,7 +88,7 @@ variable "ssh_public_key_file" {
 
 variable "ssh_cidr_blocks" {
   type        = list(string)
-  description = "A list of CIDRs allowed to SSH to the bastion."
+  description = "A list of CIDRs allowed to SSH to the bastion. Override the module default by specifying an empty list, []"
   default     = ["0.0.0.0/0"]
 }
 
