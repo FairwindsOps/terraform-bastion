@@ -1,5 +1,5 @@
 resource "aws_security_group" "bastion_ssh" {
-  name_prefix = "${var.bastion_name}-ssh-egress-"
+  name_prefix = "${var.bastion_name}-"
   description = "Allow inbound Bastion SSH and all outbound traffic"
 
   vpc_id = var.vpc_id
