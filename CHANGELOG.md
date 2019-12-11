@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.0]
+### Changed
+* The bastion security group now manages its rules as standalone Terraform resources, instead of inline rules, to allow non-Terraform things to manage other rules in the bastion security group. This requires the security group (and bastion) to be recreated, as Terraform does not support a straightforward transition from inline to standalone rules.
+
+### Added
+* The SSH ingress security group rule will not be created if the `ssh_cidr_blocks` module input is an empty list. This allows the module default to be overridden when no SSH rule is desired, if rules will be managed elsewhere.
+
 ## [0.4.1]
 ### Fixed
 * Resolved Terraform 0.12 warnings around quoting.
