@@ -3,29 +3,27 @@
 # please see [README.md](./README.md) for descriptions of all inputs.
 
 module "bastion" {
-  # Replace v0.2.0 below, with a version number from https://github.com/FairwindsOps/terraform-bastion/releases
-  source = "git@github.com:FairwindsOps/terraform-bastion.git?ref=v0.4.0"
+  # Replace the `ref` below, with a `gcp-vxxx` release from https://github.com/FairwindsOps/terraform-bastion/releases
+  source = "git@github.com:FairwindsOps/terraform-bastion.git//gcp?ref=gcp-v0.1.0"
 
-  bastion_name = "kube-bastion"
+  bastion_name       = "kube-bastion"
+  region             = "us-central1"
+  availability_zones = ["us-central1-a", "us-central1-b", "us-central1-c"]
 
   # This can also be set in the shell environment, using TF_VAR_infrastructure_bucket
   infrastructure_bucket = "CompanyName-kube-infrastructure"
 
-  # Optional bucket region variable. Default region is inherited by provider.
-  infrastructure_bucket_region = "us-west-2"
-
-  # THis allows this module to use the same S3 bucket for multiple invocations.
+  # THis allows this module to use the same GCS bucket for multiple invocations.
   infrastructure_bucket_bastion_key = "default/bastion"
-  route53_zone_id                   = "Zxxxxxxxxxxxxx"
 
-  # This gets the VPC and subnet IDs from a separate VPC module,
-  # but you can also specify `vpc-xxx` and `subnet-xxx` IDs directly.
-  vpc_id = module.vpc.aws_vpc_id
+  dns_zone_name = "kube-company-com"
 
-  vpc_subnet_ids = module.vpc.aws_subnet_public_ids
+  # This network houses the subnetwork below it.
+  network_name    = "kube"
+  subnetwork_name = "kube-nodes"
 
   # This uses an SSH public key from the Terraform root module directory.
-  ssh_public_key_file                = file("${path.root}/bastion_ssh.pub")"
+  ssh_public_key_file                = file("${path.root}/bastion_ssh.pub")
   unattended_upgrade_email_recipient = "you@example.com"
 
   # Execute additional commands during User Data, for this bastion.
@@ -71,9 +69,12 @@ variable "github_users" {
   type = "list"
 }
 
+/*
 ## if using the github_users functionality, create a bastion.auto.tfvars that populates the github_users list like this:
 github_users = [
   "user1",
   "user2",
   "user3"
 ]
+*/
+

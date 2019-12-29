@@ -1,4 +1,4 @@
-# Terraform Bastion Module
+# Terraform AWS Bastion Module
 
 This module manages an Amazon Web Services bastion EC2 instance and its Auto Scaling Group, Instance Profile / Role, CloudWatch Log Group, Security Group, and SSH Key Pair. The Auto Scaling Group will recreate the bastion if there is an issue with the EC2 instance or the availability zone where it is running.
 
@@ -9,7 +9,7 @@ The EC2 UserData assumes the Ubuntu operating system, which is configured as fol
 * The [CloudWatch Logs Agent][] is installed and configured to ship logs from these files:
 	* `/var/log/syslog`
 	* `/var/log/auth.log`
-* A host record, named using the `bastion_name` module input,  is added to a configurable Route53 DNS zone for the current public IP address of the bastion. This happens via a script configured to run on boot.
+* A host record, named using the `bastion_name` module input,  is added to a configurable Route53 DNS zone for the current public IP address of the bastion. This happens via a script configured to run each time the bastion boots.
 * Automatic updates are configured, using a configurable time to reboot, and the email address to receive errors.
 * By default sudo access is removed from the ubuntu user unless the `remove_root_access` input is set to "false."
 * Additional EC2 User Data can be executed, for one-off configuration not included in this module.
