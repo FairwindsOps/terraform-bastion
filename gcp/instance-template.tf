@@ -24,8 +24,8 @@ resource "google_compute_instance_template" "bastion" {
   name_prefix = var.bastion_name
   description = "${var.bastion_name} bastion"
 
-  # THe fw-bastion tag is required for the SSH firewall rule.
-  tags = ["fw-bastion", "terraform-managed"]
+  # The tag named after the bastion, is required for the SSH firewall rule.
+  tags = [var.bastion_name, "terraform-managed"]
 
   instance_description = "${var.bastion_name} bastion"
   machine_type         = var.machine_type

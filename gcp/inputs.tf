@@ -1,5 +1,5 @@
 variable "bastion_name" {
-  description = "The name of the bastion compute instance, DNS hostname, IAM service account, and the name prefix for other related resources."
+  description = "The name of the bastion compute instance, DNS hostname, IAM service account, and the prefix for resources such as the firewall rule, instance template, and instance group."
   default     = "ro-bastion"
 }
 
