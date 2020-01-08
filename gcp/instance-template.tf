@@ -1,4 +1,4 @@
-data "template_file" "bastion_user_data" {
+data "template_file" "bastion_setup_script" {
   template = file("${path.module}/bastion-startup-script.tmpl")
 
   vars = {
@@ -60,7 +60,7 @@ resource "google_compute_instance_template" "bastion" {
     block-project-ssh-keys = "TRUE"
     ssh-keys               = "ubuntu:${file(var.ssh_public_key_file)}"
   }
-  metadata_startup_script = data.template_file.bastion_user_data.rendered
+  metadata_startup_script = data.template_file.bastion_setup_script.rendered
 
   # THis must match the lifecycle for the instance group resource.
   lifecycle {
