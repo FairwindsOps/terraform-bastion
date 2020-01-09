@@ -27,7 +27,7 @@ module "bastion" {
   unattended_upgrade_email_recipient = "you@example.com"
 
   # Execute additional commands during User Data, for this bastion.
-  additional_user_data = <<EOD
+  additional_setup_script = <<EOD
 apt-get update && apt-get install -y zsh
 EOD
 

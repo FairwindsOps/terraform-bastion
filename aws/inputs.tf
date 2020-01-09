@@ -83,7 +83,7 @@ variable "vpc_subnet_ids" {
 }
 
 variable "ssh_public_key_file" {
-  description = "The path to an existing SSH public key file, that will be used to create an AWS SSH Key Pair."
+  description = "The content of an existing SSH public key file, that will be used to create an AWS SSH Key Pair. Yes, this input has an unfortunate name."
 }
 
 variable "ssh_cidr_blocks" {

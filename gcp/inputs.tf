@@ -78,7 +78,7 @@ variable "network_name" {
 }
 
 variable "ssh_public_key_file" {
-  description = "The path to an existing SSH public key file, that will be used with the `ssh-keys` GCP metadata to allow SSH access."
+  description = "The content of an existing SSH public key file, that will be used with the `ssh-keys` GCP metadata to allow SSH access. Yes, this input has an unfortunate name."
 }
 
 variable "ssh_cidr_blocks" {

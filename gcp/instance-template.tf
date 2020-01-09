@@ -58,7 +58,7 @@ resource "google_compute_instance_template" "bastion" {
   # Ref for GCE SSH key management: https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys
   metadata = {
     block-project-ssh-keys = "TRUE"
-    ssh-keys               = "ubuntu:${file(var.ssh_public_key_file)}"
+    ssh-keys               = "ubuntu:${var.ssh_public_key_file}"
   }
   metadata_startup_script = data.template_file.bastion_setup_script.rendered
 
