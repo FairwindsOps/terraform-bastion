@@ -1,20 +1,23 @@
 variable "bastion_name" {
-  description = "The name of the bastion EC2 instance, DNS hostname, CloudWatch Log Group, and the name prefix for other related resources."
+  description = "The name of the bastion compute instance, DNS hostname, IAM service account, and the prefix for resources such as the firewall rule, instance template, and instance group."
   default     = "ro-bastion"
 }
 
-variable "infrastructure_bucket" {
-  description = "An S3 bucket to store data that should persist on the bastion when it is recycled by the Auto Scaling Group, such as SSH host keys. This can be set in the environment via `TF_VAR_infrastructure_bucket`"
+variable "region" {
+  description = "The region where the bastion should be provisioned. This is a required input for the google_compute_region_instance_group_manager Terraform resource, and is not inherited from the provider."
 }
 
-variable "infrastructure_bucket_region" {
-  type        = string
-  description = "The S3 bucket region"
-  default     = null
+variable "availability_zones" {
+  description = "The availability zones within $region where the Auto Scaling Group can place the bastion."
+  type        = list
+}
+
+variable "infrastructure_bucket" {
+  description = "An GCS bucket to store data that should persist on the bastion when it is recycled by the Auto Scaling Group, such as SSH host keys. This can be set in the environment via `TF_VAR_infrastructure_bucket`"
 }
 
 variable "infrastructure_bucket_bastion_key" {
-  description = "The key; sub-directory in $infrastructure_bucket where the bastion will be allowed to read and write. Do not specify a trailing slash. This allows sharing an S3 bucket among multiple invocations of this module."
+  description = "The key; sub-directory in $infrastructure_bucket where the bastion will be allowed to read and write. Do not specify a trailing slash. This allows sharing a GCS bucket among multiple invocations of this module."
   default     = "bastion"
 }
 
@@ -52,38 +55,30 @@ variable "additional_external_users" {
   default     = []
 }
 
-variable "additional_user_data" {
-  description = "Content to be appended to UserData, which is run the first time the bastion EC2 boots."
+variable "additional_setup_script" {
+  description = "Content to be appended to the setup script, which is run the first time the bastion compute instance boots."
   default     = ""
 }
 
-variable "instance_type" {
-  description = "The EC2 instance type of the bastion."
-  default     = "t2.micro"
+variable "machine_type" {
+  description = "The GCE machine type of the bastion."
+  default     = "n1-standard-1"
 }
 
-variable "route53_zone_id" {
-  # This zone ID is turned into a zone name by the `register-dns` script,
-  # which is created by user-data.
-  description = "ID of the ROute53 zone for the bastion to add its host record."
+variable "dns_zone_name" {
+  description = "The name of the Google DNS zone for the bastion to add its host record. Specify the name of the managed zone, not the domain name."
 }
 
-variable "log_retention" {
-  description = "The number of days to retain logs in the CloudWatch Log Group."
-  default     = "60"
+variable "subnetwork_name" {
+  description = "The name of the existing subnetwork where the bastion will be created."
 }
 
-variable "vpc_id" {
-  description = "The VPC ID where the bastion and its security group will be created. This must match subnet IDs specified in the `vpc_subnet_ids` input."
-}
-
-variable "vpc_subnet_ids" {
-  type        = list
-  description = "A list of subnet IDs where the Auto Scaling Group can place the bastion."
+variable "network_name" {
+  description = "The name of the network where the bastion SSH firewall rule will be created. This network is the parent of $subnetwork"
 }
 
 variable "ssh_public_key_file" {
-  description = "The path to an existing SSH public key file, that will be used to create an AWS SSH Key Pair."
+  description = "The content of an existing SSH public key file, that will be used with the `ssh-keys` GCP metadata to allow SSH access. Yes, this input has an unfortunate name."
 }
 
 variable "ssh_cidr_blocks" {
@@ -92,18 +87,13 @@ variable "ssh_cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
-variable "ami_owner_id" {
-  description = "The ID of the AMI's owner in AWS. The default is Canonical."
-  default     = "099720109477"
+variable "image_family" {
+  description = "The family for the compute image. This module has assumptions about the OS being Ubuntu."
+  default     = "ubuntu-1804-lts"
 }
 
-variable "ami_filter_value" {
-  description = "The filter path for the AMI."
-  default     = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
-}
-
-variable "arn_prefix" {
-  description = "The prefix to use for AWS ARNs."
-  default     = "arn:aws"
+variable "image_project" {
+  description = "The project of the compute image owner."
+  default     = "gce-uefi-images"
 }
 
