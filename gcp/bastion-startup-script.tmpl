@@ -103,7 +103,7 @@ echo $0 - registering $${bastion_fqhn} to IP $${public_ip} using zone name $${zo
 
 # Lookup the current IP from an authoritative DNS server,
 # to delete the current record from Cloud DNS.
-zone_auth_dns_server=$(gcloud dns managed-zones describe gcp-ifetch-example |grep -i googledomains.com |tail -1 |awk '{print $2};')
+zone_auth_dns_server=$(gcloud dns managed-zones describe ${zone_name} |grep -i googledomains.com |tail -1 |awk '{print $2};')
 echo $0 - Getting current IP for $${bastion_fqhn} from DNS authoritative server $${zone_auth_dns_server}. . .
 current_ip=$(host "$${bastion_fqhn}" $${zone_auth_dns_server} | sed -rn 's@^.* has address @@p')
 if [ "x$${current_ip}" != "x" ] ; then
