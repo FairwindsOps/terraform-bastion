@@ -192,14 +192,6 @@ Type: `string`
 
 Default: `"bastion"`
 
-#### infrastructure\_bucket\_region
-
-Description: The S3 bucket region
-
-Type: `string`
-
-Default: `"null"`
-
 #### instance\_type
 
 Description: The EC2 instance type of the bastion.
