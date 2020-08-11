@@ -1,5 +1,3 @@
-data "aws_region" "current" {}
-
 locals {
   infrastructure_bucket             = data.aws_s3_bucket.infrastructure_bucket
 }
