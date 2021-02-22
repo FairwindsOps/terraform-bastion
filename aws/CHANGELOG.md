@@ -3,8 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
-## [unreleased]
-### Changed
+
+## [aws-v0.6.1]
+
+* Update user-data to not include a `dist-upgrade`
+
+## [aws-v0.6.0]
 * Removed optional infrastructure_bucket_region parameter. Always inherits from provider
 * The path for this module has moved from the root of the repository, to the `aws` sub-directory, to accommodate a new module for Google Cloud. Please update the `source` argument of your AWS module instances to include the new path and module-specific release tag, such as: `source = "git@github.com:FairwindsOps/terraform-bastion.git//aws?ref=aws-v0.5.0"`
 
