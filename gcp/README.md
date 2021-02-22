@@ -74,6 +74,24 @@ Press CTRL-c to kill sshuttle when you are done with the proxy. There are many u
 
 See the file [example-usage](./example-usage) for an example of how to use this module. Below are the available module inputs:
 
+### Requirements
+
+The following requirements are needed by this module:
+
+- terraform (>= 0.12)
+
+- google (>=2.0.0)
+
+- template (>=2.1.2)
+
+### Providers
+
+The following providers are used by this module:
+
+- google (>=2.0.0)
+
+- template (>=2.1.2)
+
 ### Required Inputs
 
 The following input variables are required:
@@ -88,43 +106,43 @@ Type: `list`
 
 Description: The name of the Google DNS zone for the bastion to add its host record. Specify the name of the managed zone, not the domain name.
 
-Type: `string`
+Type: `any`
 
 #### infrastructure\_bucket
 
-Description: An GCS bucket to store data that should persist on the bastion when it is recycled by the Auto Scaling Group, such as SSH host keys. This can be set in the environment via `TF\_VAR\_infrastructure\_bucket`
+Description: An GCS bucket to store data that should persist on the bastion when it is recycled by the Auto Scaling Group, such as SSH host keys. This can be set in the environment via `TF_VAR_infrastructure_bucket`
 
-Type: `string`
+Type: `any`
 
 #### network\_name
 
 Description: The name of the network where the bastion SSH firewall rule will be created. This network is the parent of $subnetwork
 
-Type: `string`
+Type: `any`
 
 #### region
 
 Description: The region where the bastion should be provisioned. This is a required input for the google\_compute\_region\_instance\_group\_manager Terraform resource, and is not inherited from the provider.
 
-Type: `string`
+Type: `any`
 
 #### ssh\_public\_key\_file
 
-Description: The path to an existing SSH public key file, that will be used with the `ssh-keys` GCP metadata to allow SSH access.
+Description: The content of an existing SSH public key file, that will be used with the `ssh-keys` GCP metadata to allow SSH access. Yes, this input has an unfortunate name.
 
-Type: `string`
+Type: `any`
 
 #### subnetwork\_name
 
 Description: The name of the existing subnetwork where the bastion will be created.
 
-Type: `string`
+Type: `any`
 
 #### unattended\_upgrade\_email\_recipient
 
 Description: An email address where unattended upgrade errors should be emailed. THis sets the option in /etc/apt/apt.conf.d/50unattended-upgrades
 
-Type: `string`
+Type: `any`
 
 ### Optional Inputs
 
@@ -132,15 +150,11 @@ The following input variables are optional (have default values):
 
 #### additional\_external\_users
 
-Description: Additional users to be created on the bastion. Works the same as additional\_users, but adds users via a separate systemd unit file. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` \(user name\) and `authorized\_keys`. Optional map keys are `gecos` \(full name\), `supplemental\_groups` \(comma-separated\), and `shell`. The authorized\_keys will be output to ~/.ssh/authorized\_keys using printf - multiple keys can be specified by including \n in the string.
+Description: Additional users to be created on the bastion. Works the same as additional\_users, but adds users via a separate systemd unit file. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized\_keys will be output to ~/.ssh/authorized\_keys using printf - multiple keys can be specified by including \n in the string.
 
 Type: `list`
 
-Default:
-
-```json
-[]
-```
+Default: `[]`
 
 #### additional\_setup\_script
 
@@ -152,19 +166,15 @@ Default: `""`
 
 #### additional\_users
 
-Description: Additional users to be created on the bastion. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` \(user name\) and `authorized\_keys`. Optional map keys are `gecos` \(full name\), `supplemental\_groups` \(comma-separated\), and `shell`. The authorized\_keys will be output to ~/.ssh/authorized\_keys using printf - multiple keys can be specified by including \n in the string.
+Description: Additional users to be created on the bastion. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized\_keys will be output to ~/.ssh/authorized\_keys using printf - multiple keys can be specified by including \n in the string.
 
 Type: `list`
 
-Default:
-
-```json
-[]
-```
+Default: `[]`
 
 #### bastion\_name
 
-Description: The name of the bastion compute instance, DNS hostname, IAM service account, and the name prefix for other related resources.
+Description: The name of the bastion compute instance, DNS hostname, IAM service account, and the prefix for resources such as the firewall rule, instance template, and instance group.
 
 Type: `string`
 
@@ -212,11 +222,17 @@ Default: `"true"`
 
 #### ssh\_cidr\_blocks
 
-Description: A list of CIDRs allowed to SSH to the bastion. Override the module default by specifying an empty list, \[\]
+Description: A list of CIDRs allowed to SSH to the bastion. Override the module default by specifying an empty list, []
 
 Type: `list(string)`
 
-Default: `[ "0.0.0.0/0" ]`
+Default:
+
+```json
+[
+  "0.0.0.0/0"
+]
+```
 
 #### unattended\_upgrade\_additional\_configs
 
@@ -234,6 +250,9 @@ Type: `string`
 
 Default: `"21:30"`
 
+### Outputs
+
+No output.
 
 ## Additional Design Considerations
 
