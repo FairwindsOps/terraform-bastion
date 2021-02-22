@@ -94,6 +94,6 @@ variable "image_family" {
 
 variable "image_project" {
   description = "The project of the compute image owner."
-  default     = "gce-uefi-images"
+  default     = "ubuntu-os-cloud"
 }
 

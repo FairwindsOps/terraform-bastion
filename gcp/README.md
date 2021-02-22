@@ -184,7 +184,7 @@ Description: The project of the compute image owner.
 
 Type: `string`
 
-Default: `"gce-uefi-images"`
+Default: `"ubuntu-os-cloud"`
 
 #### infrastructure\_bucket\_bastion\_key
 
