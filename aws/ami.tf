@@ -2,8 +2,8 @@
 data "aws_ami" "ubuntu" {
   most_recent = true
 
-  # THis is Canonical
-  owners = [var.ami_owner_id]
+  # This is Canonical
+  owners = [var.arn_prefix == "arn:aws" ? var.ami_owner_id : var.ami_owner_id_govcloud]
 
   filter {
     name   = "name"
