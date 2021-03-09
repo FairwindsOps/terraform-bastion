@@ -92,7 +92,7 @@ variable "ami_owner_id" {
 }
 
 variable "ami_owner_id_govcloud" {
-  description = "The ID of the AMI's owner in AWS GovCloud. The default is Canonical."
+  description = "The ID of the AMI's owner in AWS GovCloud. This value is used automatically if the module's `arn_prefix` input variable is anything other than `arn:aws`. The default is Canonical."
   default     = "513442679011"
 }
 

@@ -176,6 +176,14 @@ Type: `string`
 
 Default: `"099720109477"`
 
+#### ami\_owner\_id\_govcloud
+
+Description: The ID of the AMI's owner in AWS GovCloud. This value is used automatically if the module's `arn_prefix` input variable is anything other than `arn:aws`. The default is Canonical.
+
+Type: `string`
+
+Default: `"513442679011"`
+
 #### arn\_prefix
 
 Description: The prefix to use for AWS ARNs.
