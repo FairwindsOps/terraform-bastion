@@ -1,6 +1,6 @@
 # Terraform Bastion Modules
 
-These Terraform modules manage an Amazon Web Services (AWS) or Google Cloud (GCP) bastion and its Auto Scaling Group, Identity and Access Management (IAM) resources, remote logging, SSH users and firewall access. The Auto Scaling Group will recreate the bastion if there is an issue with the compute instance or the availability zone where it is running.
+These Terraform modules manage an Amazon Web Services (AWS) or Google Cloud Platform (GCP) bastion and its Auto Scaling Group, Identity and Access Management (IAM) resources, remote logging, SSH users and firewall access. The Auto Scaling Group will recreate the bastion if there is an issue with the compute instance or the AWS availability zone where it is running.
 
 The configuration scripts assume the Ubuntu operating system, which is configured as follows:
 

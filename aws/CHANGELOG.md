@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [aws-v0.6.2]
+
+* Add input variable for retrieving AMIs within an AWS GovCloud account. Use this value automatically when `arn_prefix` is set to an AWS partition other than `aws`, i.e., when the `arn_prefix` has a value other than `arn:aws`.
+
 ## [aws-v0.6.1]
 
 * Update user-data to not include a `dist-upgrade`

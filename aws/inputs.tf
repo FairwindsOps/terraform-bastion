@@ -91,6 +91,11 @@ variable "ami_owner_id" {
   default     = "099720109477"
 }
 
+variable "ami_owner_id_govcloud" {
+  description = "The ID of the AMI's owner in AWS GovCloud. This value is used automatically if the module's `arn_prefix` input variable is anything other than `arn:aws`. The default is Canonical."
+  default     = "513442679011"
+}
+
 variable "ami_filter_value" {
   description = "The filter path for the AMI."
   default     = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
