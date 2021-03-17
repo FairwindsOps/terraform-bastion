@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [aws-v2.0.0]
+
+* Revert the previous change to `associate_public_ip_address` as there were [unintended consequences](https://github.com/FairwindsOps/terraform-bastion/pull/44) with the default value.
+
+## [aws-v1.0.0]
+
+* Remove `associate_public_ip_address` argument; this is a potentially backwards-incompatible change that will cause public IP address allocation for the host to be determined based on the subnet in which the bastion host is launched. To ensure bastion hosts still receive public IP addresses, make sure they are launched within a public subnet.
+
 ## [aws-v0.6.2]
 
 * Add input variable for retrieving AMIs within an AWS GovCloud account. Use this value automatically when `arn_prefix` is set to an AWS partition other than `aws`, i.e., when the `arn_prefix` has a value other than `arn:aws`.
