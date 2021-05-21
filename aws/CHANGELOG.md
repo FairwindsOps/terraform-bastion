@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [aws-v2.0.1]
+* Update startup-script so that the upgrade command runs as an `at`. This is a bugfix in the situation that it upgrades a package that could restart the startup-script and DNS Update + user creation will never happen.
 ## [aws-v2.0.0]
 
 * Revert the previous change to `associate_public_ip_address` as there were [unintended consequences](https://github.com/FairwindsOps/terraform-bastion/pull/44) with the default value.
