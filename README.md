@@ -21,3 +21,20 @@ Each module has individual development and [releases](https://github.com/Fairwin
 
 * [AWS bastion module](./aws/README.md)
 * [GCP bastion module](./gcp/README.md)
+
+
+## Join the Fairwinds Open Source Community
+
+The goal of the Fairwinds Community is to exchange ideas, influence the open source roadmap, and network with fellow Kubernetes users. [Chat with us on Slack](https:\/\/join.slack.com\/t\/fairwindscommunity\/shared_invite\/zt-e3c6vj4l-3lIH6dvKqzWII5fSSFDi1g) or [join the user group](https:\/\/www.fairwinds.com\/open-source-software-user-group) to get involved!
+
+
+## Other Projects from Fairwinds
+
+Enjoying terraform-bastion? Check out some of our other projects:
+* [Polaris](https://github.com/FairwindsOps/Polaris) - Audit, enforce, and build policies for Kubernetes resources, including over 20 built-in checks for best practices
+* [Goldilocks](https://github.com/FairwindsOps/Goldilocks) - Right-size your Kubernetes Deployments by compare your memory and CPU settings against actual usage
+* [Pluto](https://github.com/FairwindsOps/Pluto) - Detect Kubernetes resources that have been deprecated or removed in future versions
+* [Nova](https://github.com/FairwindsOps/Nova) - Check to see if any of your Helm charts have updates available
+* [rbac-manager](https://github.com/FairwindsOps/rbac-manager) - Simplify the management of RBAC in your Kubernetes clusters
+
+Or [check out the full list](https://www.fairwinds.com/open-source-software?utm_source=terraform-bastion&utm_medium=terraform-bastion&utm_campaign=terraform-bastion)
