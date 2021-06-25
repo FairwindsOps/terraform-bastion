@@ -106,3 +106,7 @@ variable "arn_prefix" {
   default     = "arn:aws"
 }
 
+variable "encrypt_root_volume" {
+  description = "If true, encrypt the root ebs volume of the bastion"
+  default     = true
+}
