@@ -200,6 +200,14 @@ Type: `string`
 
 Default: `"ro-bastion"`
 
+#### encrypt\_root\_volume
+
+Description: If true, encrypt the root ebs volume of the bastion
+
+Type: `bool`
+
+Default: `true`
+
 #### infrastructure\_bucket\_bastion\_key
 
 Description: The key; sub-directory in $infrastructure\_bucket where the bastion will be allowed to read and write. Do not specify a trailing slash. This allows sharing an S3 bucket among multiple invocations of this module.
@@ -265,6 +273,7 @@ Default: `"21:30"`
 ### Outputs
 
 No output.
+
 
 ## Additional Design Considerations
 
