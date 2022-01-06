@@ -78,6 +78,7 @@ variable "vpc_subnet_ids" {
 
 variable "ssh_public_key_file" {
   description = "The content of an existing SSH public key file, that will be used to create an AWS SSH Key Pair. Yes, this input has an unfortunate name."
+  default     = ""
 }
 
 variable "ssh_cidr_blocks" {
