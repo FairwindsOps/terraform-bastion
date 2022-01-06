@@ -63,6 +63,11 @@ variable "route53_zone_id" {
   default = ""
 }
 
+variable "alb_name" {
+  description = "Name of Load Balancer to create for the bastion. To attach an existing Load Balancer, let this parameter empty and add `aws_autoscaling_attachment` resource with `autoscaling_group_id` output and your load balancer id."
+  default = ""
+}
+
 variable "log_retention" {
   description = "The number of days to retain logs in the CloudWatch Log Group."
   default     = "60"

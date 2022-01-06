@@ -13,7 +13,10 @@ module "bastion" {
 
   # This allows this module to use the same S3 bucket for multiple invocations.
   infrastructure_bucket_bastion_key = "default/bastion"
+
+  # Either a Route53 zone id or ALB name should be defined.
   route53_zone_id                   = "Zxxxxxxxxxxxxx"
+  # alb_name                        = "kube-bastion"
 
   # This gets the VPC and subnet IDs from a separate VPC module,
   # but you can also specify `vpc-xxx` and `subnet-xxx` IDs directly.

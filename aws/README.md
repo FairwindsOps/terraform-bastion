@@ -148,6 +148,14 @@ Type: `list`
 
 Default: `[]`
 
+#### alb\_name
+
+Description: Name of Load Balancer to create for the bastion. To attach an existing Load Balancer, let this parameter empty and add `aws_autoscaling_attachment` resource with `autoscaling_group_id` output and your load balancer id.
+
+Type: `string`
+
+Default: `""`
+
 #### ami\_filter\_value
 
 Description: The filter path for the AMI.
@@ -277,6 +285,18 @@ Default: `"21:30"`
 ### Outputs
 
 The following outputs are exported:
+
+#### alb\_arn
+
+Description: The ARN of the bastion load balancer
+
+#### alb\_dns\_name
+
+Description: The DNS name of the bastion load balancer
+
+#### alb\_id
+
+Description: The ID of the bastion load balancer
 
 #### security\_group\_id
 

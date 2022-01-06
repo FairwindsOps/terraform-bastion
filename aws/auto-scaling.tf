@@ -22,6 +22,9 @@ resource "aws_autoscaling_group" "bastion" {
   # THis needs to match the Launch Configuration.
   lifecycle {
     create_before_destroy = true
+
+    # Allow end user to attach a load balancer with `aws_autoscaling_attachment`.
+    ignore_changes = [load_balancers, target_group_arns]
   }
 }
 
