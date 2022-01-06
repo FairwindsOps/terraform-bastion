@@ -41,7 +41,7 @@ host 172.20.*.*
 You can now SSH directly to IP addresses within `172.20.0.0/16`, and your connection will be proxied through the bastion.
 
 
-### Accessing a Private Kubernetes API
+### Accessing a Private Kubernetes API 
 
 You can proxy access to a private Kubernetes API through the bastion, instead of using a VPN.
 
@@ -272,11 +272,16 @@ Default: `"21:30"`
 
 ### Outputs
 
-`security_group_id`: The ID of the bastion security group
+The following outputs are exported:
+
+#### security\_group\_id
+
+Description: n/a
+
 
 ## Additional Design Considerations
 
-The [design document](./DESIGN.md) describes the goals and vision for this project.
+The [design document](./DESIGN.md) describes the goals and vision for this project. 
 
 ## Contributing
 

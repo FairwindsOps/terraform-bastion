@@ -14,6 +14,7 @@ data "template_file" "additional_external_user" {
     user_shell               = lookup(var.additional_external_users[count.index], "shell", "/bin/bash")
     user_supplemental_groups = lookup(var.additional_external_users[count.index], "supplemental_groups", "")
     user_authorized_keys     = lookup(var.additional_external_users[count.index], "authorized_keys")
+    user_sudo                = replace(lookup(var.additional_external_users[count.index], "supplemental_groups"), "sudo", "<REPLACED>") != lookup(var.additional_external_users[count.index], "supplemental_groups")
   }
 
   template = <<EOF
@@ -37,6 +38,9 @@ else
   printf '$${user_authorized_keys}' > ~$${user_login}/.ssh/authorized_keys
   chown -R $${user_login}:$${user_login} ~$${user_login}/.ssh
   chmod -R go= ~$${user_login}/.ssh
+%%{~ if user_sudo }
+  printf '$${user_login} ALL=(ALL) NOPASSWD:ALL'>/etc/sudoers.d/95-nopasswd-$${user_login}
+%%{ endif ~}
 fi
 
 EOF
