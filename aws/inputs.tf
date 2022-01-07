@@ -51,6 +51,12 @@ variable "additional_user_data" {
   default     = ""
 }
 
+variable "additional_script_files" {
+  type = list(string)
+  description = "Additional script files, which are run the first time the bastion EC2 boots."
+  default     = []
+}
+
 variable "instance_type" {
   description = "The EC2 instance type of the bastion."
   default     = "t2.micro"

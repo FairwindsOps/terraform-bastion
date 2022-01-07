@@ -180,6 +180,9 @@ else
   info Retaining root access as remove_root_access is set to \"$rra\"
 fi
 
+# Additional scripts loaded from files declared in additional_script_files module input.
+${additional_scripts}
+
 info Rebooting, if required by any kernel updates earlier
 test -r /var/run/reboot-required && echo Reboot is required, doing that now... && shutdown -r now
 

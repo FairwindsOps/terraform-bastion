@@ -18,6 +18,7 @@ data "template_file" "bastion_user_data" {
     additional_user_templates                                   = join("\n", data.template_file.additional_user.*.rendered)
     infrastructure_bucket_additional_external_users_script_etag = aws_s3_bucket_object.additional-external-users-script.etag
     additional-external-users-script-md5                        = local.additional-external-users-script-md5
+    additional_scripts                                          = join("\n", data.local_file.additional_scripts.*.content)
   }
 }
 

@@ -90,6 +90,8 @@ The following providers are used by this module:
 
 - aws (>=2.30.0)
 
+- local
+
 - template
 
 ### Required Inputs
@@ -135,6 +137,14 @@ The following input variables are optional (have default values):
 Description: Additional users to be created on the bastion. Works the same as additional\_users, but adds users via a separate systemd unit file. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized\_keys will be output to ~/.ssh/authorized\_keys using printf - multiple keys can be specified by including \n in the string.
 
 Type: `list`
+
+Default: `[]`
+
+#### additional\_script\_files
+
+Description: Additional script files, which are run the first time the bastion EC2 boots.
+
+Type: `list(string)`
 
 Default: `[]`
 
