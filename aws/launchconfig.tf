@@ -35,7 +35,7 @@ resource "aws_launch_configuration" "bastion" {
   associate_public_ip_address = "true"
 
   user_data_base64 = base64gzip(data.template_file.bastion_user_data.rendered)
-  key_name         = aws_key_pair.bastion.id
+  key_name         = length(aws_key_pair.bastion) > 0 ? aws_key_pair.bastion[0].id : null
 
   root_block_device {
     encrypted = var.encrypt_root_volume
