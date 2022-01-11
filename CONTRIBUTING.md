@@ -8,5 +8,4 @@ Thank you for your interest in improving these modules. Please first discuss any
 	* Suggest a version bump along with your update, see the changelog  for details.
 * If you intend to update `README.md`:
 	* make changes to one of the `README.*.md` files, instead of changing `README.md`.
-	* Install [terraform-docs](https://github.com/segmentio/terraform-docs).
-	* Run `make` to generate `README.md`, including Terraform module inputs.
+	* Run `make` to generate `README.md`, including Terraform module inputs. This uses Docker to run a specific version of [terraform-docs](https://github.com/segmentio/terraform-docs).
