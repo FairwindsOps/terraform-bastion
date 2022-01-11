@@ -78,11 +78,9 @@ See the file [example-usage](./example-usage) for an example of how to use this 
 
 The following requirements are needed by this module:
 
-- terraform (>= 0.12)
+- terraform (>= 0.13)
 
 - google (>=2.0.0)
-
-- template (>=2.1.2)
 
 ### Providers
 
@@ -90,7 +88,7 @@ The following providers are used by this module:
 
 - google (>=2.0.0)
 
-- template (>=2.1.2)
+- template
 
 ### Required Inputs
 
@@ -254,13 +252,14 @@ Default: `"21:30"`
 
 No output.
 
-## Additional Design Considerations
-
-The [design document](../DESIGN.md) describes the goals and vision for this project. 
 
 ## Contributing
 
-Thank you for your interest in improving this module. Please see [contributing](../CONTRIBUTING.md) for additional information.
+We are happy to share this internal module with the community. We appreciate suggestions for improvement, and recommend starting by opening an issue. Please see [contributing.md](../CONTRIBUTING.md) for details.
+
+## Design Considerations
+
+The [design document](../DESIGN.md) describes the goals and vision for this project. 
 
 
 [Stackdriver Logging agent]: https://cloud.google.com/logging/docs/agent/installation

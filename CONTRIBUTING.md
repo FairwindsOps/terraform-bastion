@@ -1,9 +1,14 @@
 # Contributing to Terraform Bastion Modules
 
-Thank you for your interest in improving these modules. Please first discuss any enhancement to this module by opening an issue](https://github.com/FairwindsOps/terraform-bastion/issues), and familiarize yourself with the [design document](./DESIGN.md).
+Thank you for your interest in improving this module. Please start by discussing enhancements or fixes in a [new Github issue](https://github.com/FairwindsOps/terraform-bastion/issues), which allows everyone to agree on a proposal before work begins. We recommend new issues include:
+
+* A summary of the motivation or context for the change.
+* Backward compatibility / migration requirements.
+* An example of how to use a new feature or reproduce a problem you are experiencing.
+Please see also the [design document](./DESIGN.md).
 
 ## Requirements for Pull Requests
-* Test a `terraform apply` of the changes your pull request introduces, to ensure a good user experience for existing bastions. If you are unsure, please have a discussion in your Github issue or pull request.
+* Test a `terraform apply` of the changes your pull request introduces, to ensure a good user experience for existing bastions. If you are unsure, please have a discussion in your Github issue first.
 * Update the changelog.
 	* Suggest a version bump along with your update, see the changelog  for details.
 * If you intend to update `README.md`:
