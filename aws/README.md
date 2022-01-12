@@ -80,7 +80,7 @@ See the file [example-usage](./example-usage) for an example of how to use this 
 
 The following requirements are needed by this module:
 
-- terraform (>= 0.12)
+- terraform (>= 0.13)
 
 - aws (>=2.30.0)
 
@@ -281,10 +281,10 @@ The following outputs are exported:
 Description: The ID of the bastion security group
 
 
-## Additional Design Considerations
-
-The [design document](./DESIGN.md) describes the goals and vision for this project. 
-
 ## Contributing
 
-Thank you for your interest in improving this module. Please see [contributing](./CONTRIBUTING.md) for additional information.
+We are happy to share this internal module with the community. We appreciate suggestions for improvement, and recommend starting by opening an issue. Please see [contributing.md](../CONTRIBUTING.md) for details.
+
+## Design Considerations
+
+The [design document](../DESIGN.md) describes the goals and vision for this project. 
