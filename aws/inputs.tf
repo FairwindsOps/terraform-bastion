@@ -53,7 +53,7 @@ variable "additional_user_data" {
 
 variable "instance_type" {
   description = "The EC2 instance type of the bastion."
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 
 variable "route53_zone_id" {
