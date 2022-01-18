@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [aws-unreleased]
 * Add input variable `additional_user_data_end` to execute commands after users creation.
+* `route53_zone_id` is now optional.
 
 ## [aws-v3.0.0]
 * Introducting a breaking change by updating the terraform required_providers block to the format supported for terraform versions >=0.13
