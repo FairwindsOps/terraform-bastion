@@ -294,6 +294,14 @@ Default: `"21:30"`
 
 The following outputs are exported:
 
+#### autoscaling\_group\_arn
+
+Description: The ARN of the autoscaling group
+
+#### autoscaling\_group\_id
+
+Description: The ID of the autoscaling group
+
 #### security\_group\_id
 
 Description: The ID of the bastion security group
