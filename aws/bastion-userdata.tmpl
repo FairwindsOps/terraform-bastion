@@ -131,7 +131,7 @@ Unattended-Upgrade::Mail "${unattended_upgrade_email_recipient}";
 ${unattended_upgrade_additional_configs}
 EOF
 
-# Execute optional additional user data.
+# Execute optional additional user data (before additional users are created).
 if [ "$${additional_user_data}x" == "x" ] ; then
   info "Executing additional_user_data. . ."
   ${additional_user_data}
@@ -168,6 +168,13 @@ EOF
 systemctl daemon-reload
 systemctl enable additional-external-users
 systemctl start additional-external-users
+
+# Execute optional additional user data (after additional users are created).
+if [ "$${additional_user_data_end}x" == "x" ] ; then
+  info "Executing additional_user_data_end. . ."
+  ${additional_user_data_end}
+  info "Finished executing additional_user_data_end. . ."
+fi
 
 # Use a temporary variable to more easily compare the lowercase remove_root_access input.
 rra=$(echo ${remove_root_access} |tr '[:upper:]' '[:lower:]')

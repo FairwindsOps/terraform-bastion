@@ -140,7 +140,15 @@ Default: `[]`
 
 #### additional\_user\_data
 
-Description: Content to be appended to UserData, which is run the first time the bastion EC2 boots.
+Description: Content to be appended to UserData, which is run the first time the bastion EC2 boots, before additional users are created.
+
+Type: `string`
+
+Default: `""`
+
+#### additional\_user\_data\_end
+
+Description: Content to be appended to UserData, which is run the first time the bastion EC2 boots, after additional users are created.
 
 Type: `string`
 

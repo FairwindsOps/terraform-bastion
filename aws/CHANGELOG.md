@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [aws-unreleased]
+* Add input variable `additional_user_data_end` to execute commands after users creation.
+
 ## [aws-v3.0.0]
 * Introducting a breaking change by updating the terraform required_providers block to the format supported for terraform versions >=0.13
 
