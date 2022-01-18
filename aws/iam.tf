@@ -81,6 +81,8 @@ EOF
 }
 
 resource "aws_iam_role_policy" "bastion_route53" {
+  count = var.route53_zone_id == "" ? 0 : 1
+
   name = "bastion-route53"
   role = aws_iam_role.bastion_role.id
 
