@@ -13,6 +13,7 @@ data "template_file" "bastion_user_data" {
     unattended_upgrade_additional_configs = var.unattended_upgrade_additional_configs
     remove_root_access                    = var.remove_root_access
     additional_user_data                  = var.additional_user_data
+    additional_user_data_end              = var.additional_user_data_end
     # Join the rendered templates per additional user into a single string variable.
 
     additional_user_templates                                   = join("\n", data.template_file.additional_user.*.rendered)

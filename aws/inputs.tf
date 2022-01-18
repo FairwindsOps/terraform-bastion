@@ -47,7 +47,12 @@ variable "additional_external_users" {
 }
 
 variable "additional_user_data" {
-  description = "Content to be appended to UserData, which is run the first time the bastion EC2 boots."
+  description = "Content to be appended to UserData, which is run the first time the bastion EC2 boots, before additional users are created."
+  default     = ""
+}
+
+variable "additional_user_data_end" {
+  description = "Content to be appended to UserData, which is run the first time the bastion EC2 boots, after additional users are created."
   default     = ""
 }
 
