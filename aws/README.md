@@ -102,12 +102,6 @@ Description: An S3 bucket to store data that should persist on the bastion when 
 
 Type: `any`
 
-#### route53\_zone\_id
-
-Description: ID of the ROute53 zone for the bastion to add its host record.
-
-Type: `any`
-
 #### unattended\_upgrade\_email\_recipient
 
 Description: An email address where unattended upgrade errors should be emailed. THis sets the option in /etc/apt/apt.conf.d/50unattended-upgrades
@@ -241,6 +235,14 @@ Description: Whether to remove root access from the ubuntu user. Set this to yes
 Type: `string`
 
 Default: `"true"`
+
+#### route53\_zone\_id
+
+Description: ID of the ROute53 zone for the bastion to add its host record.
+
+Type: `string`
+
+Default: `""`
 
 #### ssh\_cidr\_blocks
 
