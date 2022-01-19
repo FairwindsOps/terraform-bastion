@@ -188,5 +188,8 @@ else
 fi
 
 info Rebooting, if required by any kernel updates earlier
-test -r /var/run/reboot-required && echo Reboot is required, doing that now... && shutdown -r now
+if test -r /var/run/reboot-required ; then
+  echo Reboot is required, doing that now...
+  shutdown -r now
+fi
 
