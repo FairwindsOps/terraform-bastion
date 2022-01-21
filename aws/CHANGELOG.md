@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [aws-unreleased]
 * Add input variable `additional_user_data_end` to execute commands after users creation.
+* Add `ssh_key_name` to support external `aws_key_pair` resource.
 * Make userdata exit with code 0 when no reboot is required. This avoid cloud-init status to report an error.
 
 ## [aws-v3.0.0]
