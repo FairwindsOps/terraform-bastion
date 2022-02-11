@@ -258,6 +258,20 @@ Default:
 ]
 ```
 
+#### ssh\_ipv6\_cidr\_blocks
+
+Description: A list of IPv6 CIDRs allowed to SSH to the bastion. Override the module default by specifying an empty list, []
+
+Type: `list(string)`
+
+Default:
+
+```json
+[
+  "::/0"
+]
+```
+
 #### ssh\_key\_name
 
 Description: Key name of a pre-existing AWS SSH Key Pair to use. This input is mutually exclusive with the `ssh_public_key_file` input, which can be used instead to create a new Key Pair.

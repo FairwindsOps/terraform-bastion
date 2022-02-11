@@ -23,6 +23,18 @@ resource "aws_security_group_rule" "bastion_ssh" {
   security_group_id = aws_security_group.bastion_ssh.id
 }
 
+resource "aws_security_group_rule" "bastion_ssh_ipv6" {
+  # Only add this rule if the list of ssh_cidr_blocks is set.
+  count             = length(var.ssh_ipv6_cidr_blocks) > 0 ? 1 : 0
+  type              = "ingress"
+  description       = "Terraform-managed SSH access"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  ipv6_cidr_blocks  = var.ssh_ipv6_cidr_blocks
+  security_group_id = aws_security_group.bastion_ssh.id
+}
+
 resource "aws_security_group_rule" "bastion_egress" {
   type              = "egress"
   description       = "Terraform-managed bastion egress"
@@ -30,5 +42,6 @@ resource "aws_security_group_rule" "bastion_egress" {
   to_port           = 0
   protocol          = "-1"
   cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
   security_group_id = aws_security_group.bastion_ssh.id
 }

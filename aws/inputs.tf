@@ -98,6 +98,12 @@ variable "ssh_cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "ssh_ipv6_cidr_blocks" {
+  type        = list(string)
+  description = "A list of IPv6 CIDRs allowed to SSH to the bastion. Override the module default by specifying an empty list, []"
+  default     = ["::/0"]
+}
+
 variable "ami_owner_id" {
   description = "The ID of the AMI's owner in AWS. The default is Canonical."
   default     = "099720109477"
