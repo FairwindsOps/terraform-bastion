@@ -7,7 +7,7 @@ resource "google_service_account" "bastion" {
 
 resource "google_project_iam_member" "bastion_dns" {
   role = "roles/dns.admin"
-
+  project = data.google_project.project
   member = "serviceAccount:${google_service_account.bastion.email}"
 }
 
@@ -15,5 +15,6 @@ resource "google_storage_bucket_iam_member" "bastion" {
   bucket = var.infrastructure_bucket
   role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${google_service_account.bastion.email}"
+  project = data.google_project.project
 }
 
