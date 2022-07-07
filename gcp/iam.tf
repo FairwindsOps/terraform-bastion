@@ -7,7 +7,7 @@ resource "google_service_account" "bastion" {
 
 resource "google_project_iam_member" "bastion_dns" {
   role = "roles/dns.admin"
-  project = data.google_project.project
+  project = data.google_project.project.number
   member = "serviceAccount:${google_service_account.bastion.email}"
 }
 
