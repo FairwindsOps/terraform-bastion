@@ -67,12 +67,12 @@ variable "machine_type" {
 
 variable "enable_secure_boot" {
   description = "Enables shielded instance secure boot which verifies the digital signature of all boot components, and halts the boot process if signature verification fails."
-  default = "false"
+  default = false
 }
 
 variable "enable_confidential_nodes" {
   description = "Defines whether the instance should have confidential compute enabled."
-  default = "false"
+  default = false
 }
 
 variable "dns_zone_name" {
