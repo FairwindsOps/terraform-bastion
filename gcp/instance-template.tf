@@ -53,7 +53,7 @@ resource "google_compute_instance_template" "bastion" {
   }
 
   confidential_instance_config {
-    enable_confidential_config = var.enable_confidential_nodes
+    enable_confidential_compute = var.enable_confidential_nodes
   }
 
   service_account {
