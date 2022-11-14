@@ -33,7 +33,7 @@ resource "google_compute_instance_template" "bastion" {
 
   scheduling {
     automatic_restart   = true
-    on_host_maintenance = "MIGRATE"
+    on_host_maintenance = var.on_host_maintenance
   }
 
   disk {
