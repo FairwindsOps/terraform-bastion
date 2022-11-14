@@ -70,7 +70,7 @@ variable "enable_secure_boot" {
   default = false
 }
 
-variable "enable_confidential_nodes" {
+variable "enable_confidential_compute" {
   description = "Defines whether the instance should have confidential compute enabled."
   default = false
 }
