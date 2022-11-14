@@ -80,13 +80,13 @@ The following requirements are needed by this module:
 
 - terraform (>= 0.13)
 
-- google (>=2.0.0)
+- google (>=4.27.0)
 
 ### Providers
 
 The following providers are used by this module:
 
-- google (>=2.0.0)
+- google (>=4.27.0)
 
 - template
 

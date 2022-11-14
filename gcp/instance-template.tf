@@ -48,6 +48,14 @@ resource "google_compute_instance_template" "bastion" {
     access_config {}
   }
 
+  shielded_instance_config {
+    enable_secure_boot = var.enable_secure_boot
+  }
+
+  confidential_instance_config {
+    enable_confidential_config = var.enable_confidential_nodes
+  }
+
   service_account {
     email = google_service_account.bastion.email
 
