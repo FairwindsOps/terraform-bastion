@@ -210,6 +210,30 @@ Type: `string`
 
 Default: `"n1-standard-1"`
 
+#### enable\_confidential\_compute
+
+Description: Enables confidential compute for the bastions vm instance.
+
+Type: `bool`
+
+Default: `"false"`
+
+#### enable\_secure\_boot
+
+Description: Enables secure boot for the bastions vm instance.
+
+Type: `bool`
+
+Default: `"false"`
+
+#### on\_host\_maintenance
+
+Description: How to handle host maintenance events for this VM. Must be one of MIGRATE or TERMINATE.
+
+Type: `string`
+
+Default: `"MIGRATE"`
+
 #### remove\_root\_access
 
 Description: Whether to remove root access from the ubuntu user. Set this to yes\|true\|1 to remove root access, or anything else to retain it.
