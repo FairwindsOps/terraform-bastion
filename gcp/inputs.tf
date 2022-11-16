@@ -65,6 +65,21 @@ variable "machine_type" {
   default     = "n1-standard-1"
 }
 
+variable "enable_secure_boot" {
+  description = "Enables shielded instance secure boot which verifies the digital signature of all boot components, and halts the boot process if signature verification fails."
+  default = false
+}
+
+variable "enable_confidential_compute" {
+  description = "Defines whether the instance should have confidential compute enabled."
+  default = false
+}
+
+variable "on_host_maintenance" {
+  description = "Sets the scheduling.onHostMaintenance behavior. Must be either MIGRATE or TERMINATE"
+  default = "MIGRATE"
+}
+
 variable "dns_zone_name" {
   description = "The name of the Google DNS zone for the bastion to add its host record. Specify the name of the managed zone, not the domain name."
 }

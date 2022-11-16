@@ -80,13 +80,13 @@ The following requirements are needed by this module:
 
 - terraform (>= 0.13)
 
-- google (>=2.0.0)
+- google (>=4.27.0)
 
 ### Providers
 
 The following providers are used by this module:
 
-- google (>=2.0.0)
+- google (>=4.27.0)
 
 - template
 
@@ -209,6 +209,30 @@ Description: The GCE machine type of the bastion.
 Type: `string`
 
 Default: `"n1-standard-1"`
+
+#### enable\_confidential\_compute
+
+Description: Enables confidential compute for the bastions vm instance.
+
+Type: `bool`
+
+Default: `"false"`
+
+#### enable\_secure\_boot
+
+Description: Enables secure boot for the bastions vm instance.
+
+Type: `bool`
+
+Default: `"false"`
+
+#### on\_host\_maintenance
+
+Description: How to handle host maintenance events for this VM. Must be one of MIGRATE or TERMINATE.
+
+Type: `string`
+
+Default: `"MIGRATE"`
 
 #### remove\_root\_access
 

@@ -33,7 +33,7 @@ resource "google_compute_instance_template" "bastion" {
 
   scheduling {
     automatic_restart   = true
-    on_host_maintenance = "MIGRATE"
+    on_host_maintenance = var.on_host_maintenance
   }
 
   disk {
@@ -46,6 +46,14 @@ resource "google_compute_instance_template" "bastion" {
     subnetwork = var.subnetwork_name
     # This is required to configure a public IP address.
     access_config {}
+  }
+
+  shielded_instance_config {
+    enable_secure_boot = var.enable_secure_boot
+  }
+
+  confidential_instance_config {
+    enable_confidential_compute = var.enable_confidential_compute
   }
 
   service_account {
