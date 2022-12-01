@@ -60,6 +60,7 @@ variable "route53_zone_id" {
   # This zone ID is turned into a zone name by the `register-dns` script,
   # which is created by user-data.
   description = "ID of the ROute53 zone for the bastion to add its host record."
+  default = ""
 }
 
 variable "log_retention" {
@@ -76,8 +77,13 @@ variable "vpc_subnet_ids" {
   description = "A list of subnet IDs where the Auto Scaling Group can place the bastion."
 }
 
+variable "ssh_key_name" {
+  description = "Key name of a pre-existing AWS SSH Key Pair to use. This input is mutually exclusive with the `ssh_public_key_file` input, which can be used instead to create a new Key Pair."
+  default     = ""
+}
+
 variable "ssh_public_key_file" {
-  description = "The content of an existing SSH public key file, that will be used to create an AWS SSH Key Pair. Yes, this input has an unfortunate name."
+  description = "The *content* of an existing SSH public key file, that will be used to create an AWS SSH Key Pair. This input is mutually exclusive with the `ssh_key_name` input, which can be used instead to reference a pre-existing Key Pair."
   default     = ""
 }
 
