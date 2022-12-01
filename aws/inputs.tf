@@ -76,13 +76,8 @@ variable "vpc_subnet_ids" {
   description = "A list of subnet IDs where the Auto Scaling Group can place the bastion."
 }
 
-variable "ssh_key_name" {
-  description = "Key name of a pre-existing AWS SSH Key Pair to use. This input is mutually exclusive with the `ssh_public_key_file` input, which can be used instead to create a new Key Pair."
-  default     = ""
-}
-
 variable "ssh_public_key_file" {
-  description = "The *content* of an existing SSH public key file, that will be used to create an AWS SSH Key Pair. This input is mutually exclusive with the `ssh_key_name` input, which can be used instead to reference a pre-existing Key Pair."
+  description = "The content of an existing SSH public key file, that will be used to create an AWS SSH Key Pair. Yes, this input has an unfortunate name."
   default     = ""
 }
 
