@@ -60,7 +60,6 @@ variable "route53_zone_id" {
   # This zone ID is turned into a zone name by the `register-dns` script,
   # which is created by user-data.
   description = "ID of the ROute53 zone for the bastion to add its host record."
-  default = ""
 }
 
 variable "log_retention" {

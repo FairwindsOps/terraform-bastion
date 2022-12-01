@@ -228,14 +228,6 @@ Type: `string`
 
 Default: `"true"`
 
-#### route53\_zone\_id
-
-Description: ID of the ROute53 zone for the bastion to add its host record.
-
-Type: `string`
-
-Default: `""`
-
 #### ssh\_cidr\_blocks
 
 Description: A list of CIDRs allowed to SSH to the bastion. Override the module default by specifying an empty list, []
