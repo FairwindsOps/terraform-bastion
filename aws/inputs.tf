@@ -113,6 +113,7 @@ variable "encrypt_root_volume" {
 }
 
 variable "extra_asg_tags" {
+  type = list
   description = "Extra tags for the bastion autoscaling group"
   default = []
 }
