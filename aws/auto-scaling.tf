@@ -19,6 +19,16 @@ resource "aws_autoscaling_group" "bastion" {
     propagate_at_launch = true
   }
 
+  dynamic "extra_tag" {
+    for_each = var.extra_asg_tags
+    tag {
+      key = extra_tag.value["key"]
+      value = extra_tag.value["value"]
+      propagate_at_launch = extra_tag.value["propagate_at_launch"]
+    }
+  }
+
+
   # THis needs to match the Launch Configuration.
   lifecycle {
     create_before_destroy = true
