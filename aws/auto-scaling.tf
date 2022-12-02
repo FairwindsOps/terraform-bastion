@@ -19,12 +19,12 @@ resource "aws_autoscaling_group" "bastion" {
     propagate_at_launch = true
   }
 
-  dynamic "setting" {
+  dynamic "tag" {
     for_each = var.extra_asg_tags
-    tag {
-      key = setting.value["key"]
-      value = setting.value["value"]
-      propagate_at_launch = setting.value["propagate_at_launch"]
+    content {
+      key = tag.value["key"]
+      value = tag.value["value"]
+      propagate_at_launch = tag.value["propagate_at_launch"]
     }
   }
 
