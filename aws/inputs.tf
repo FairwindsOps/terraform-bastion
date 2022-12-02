@@ -114,11 +114,5 @@ variable "encrypt_root_volume" {
 
 variable "extra_asg_tags" {
   description = "Extra tags for the bastion autoscaling group"
-  default = [
-    {
-      key = "backup"
-      value = "external"
-      propagate_at_launch = true
-    }
-  ]
+  default = []
 }
