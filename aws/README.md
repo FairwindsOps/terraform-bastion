@@ -102,6 +102,12 @@ Description: An S3 bucket to store data that should persist on the bastion when 
 
 Type: `any`
 
+#### route53\_zone\_id
+
+Description: ID of the ROute53 zone for the bastion to add its host record.
+
+Type: `any`
+
 #### unattended\_upgrade\_email\_recipient
 
 Description: An email address where unattended upgrade errors should be emailed. THis sets the option in /etc/apt/apt.conf.d/50unattended-upgrades
@@ -236,14 +242,6 @@ Type: `string`
 
 Default: `"true"`
 
-#### route53\_zone\_id
-
-Description: ID of the ROute53 zone for the bastion to add its host record.
-
-Type: `string`
-
-Default: `""`
-
 #### ssh\_cidr\_blocks
 
 Description: A list of CIDRs allowed to SSH to the bastion. Override the module default by specifying an empty list, []
@@ -258,17 +256,9 @@ Default:
 ]
 ```
 
-#### ssh\_key\_name
-
-Description: Key name of a pre-existing AWS SSH Key Pair to use. This input is mutually exclusive with the `ssh_public_key_file` input, which can be used instead to create a new Key Pair.
-
-Type: `string`
-
-Default: `""`
-
 #### ssh\_public\_key\_file
 
-Description: The *content* of an existing SSH public key file, that will be used to create an AWS SSH Key Pair. This input is mutually exclusive with the `ssh_key_name` input, which can be used instead to reference a pre-existing Key Pair.
+Description: The content of an existing SSH public key file, that will be used to create an AWS SSH Key Pair. Yes, this input has an unfortunate name.
 
 Type: `string`
 
