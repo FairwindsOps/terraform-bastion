@@ -113,13 +113,13 @@ variable "encrypt_root_volume" {
 }
 
 variable "extra_asg_tags" {
-  type = list
+  type        = list
   description = "Extra tags for the bastion autoscaling group"
-  default = []
+  default     = []
 }
 
 variable "root_volume_type" {
-  type = string
+  type        = string
   description = "The root volume type for the bastion instance"
-  default = gp3
+  default     = gp3
 }

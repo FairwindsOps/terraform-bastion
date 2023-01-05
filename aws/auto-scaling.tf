@@ -22,8 +22,8 @@ resource "aws_autoscaling_group" "bastion" {
   dynamic "tag" {
     for_each = var.extra_asg_tags
     content {
-      key = tag.value["key"]
-      value = tag.value["value"]
+      key                 = tag.value["key"]
+      value               = tag.value["value"]
       propagate_at_launch = tag.value["propagate_at_launch"]
     }
   }
