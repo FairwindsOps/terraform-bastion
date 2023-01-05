@@ -39,6 +39,7 @@ resource "aws_launch_configuration" "bastion" {
 
   root_block_device {
     encrypted = var.encrypt_root_volume
+    volume_type = var.root_volume_type
   }
 
   lifecycle {

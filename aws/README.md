@@ -242,6 +242,14 @@ Type: `string`
 
 Default: `"true"`
 
+#### root\_volume\_type
+
+Description: The root volume type for the bastion instance.
+
+Type: `string`
+
+Default: `"gp3"`
+
 #### ssh\_cidr\_blocks
 
 Description: A list of CIDRs allowed to SSH to the bastion. Override the module default by specifying an empty list, []
