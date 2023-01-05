@@ -121,5 +121,5 @@ variable "extra_asg_tags" {
 variable "root_volume_type" {
   type        = string
   description = "The root volume type for the bastion instance"
-  default     = gp3
+  default     = "gp3"
 }
