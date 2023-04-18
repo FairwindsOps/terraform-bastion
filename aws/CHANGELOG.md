@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [aws-unreleased]
+* Removing userdata changes and related variables, so sshuttle commands will work.
+
+## [aws-unreleased]
 * Add input variable `additional_user_data_end` to execute commands after users creation.
 * Add `ssh_key_name` to support external `aws_key_pair` resource.
 * Make userdata exit with code 0 when no reboot is required. This avoid cloud-init status to report an error.

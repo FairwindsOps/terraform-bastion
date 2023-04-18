@@ -13,7 +13,6 @@ data "template_file" "bastion_user_data" {
     unattended_upgrade_additional_configs = var.unattended_upgrade_additional_configs
     remove_root_access                    = var.remove_root_access
     additional_user_data                  = var.additional_user_data
-    additional_user_data_end              = var.additional_user_data_end
     # Join the rendered templates per additional user into a single string variable.
 
     additional_user_templates                                   = join("\n", data.template_file.additional_user.*.rendered)
@@ -36,10 +35,11 @@ resource "aws_launch_configuration" "bastion" {
   associate_public_ip_address = "true"
 
   user_data_base64 = base64gzip(data.template_file.bastion_user_data.rendered)
-  key_name         = var.ssh_key_name != "" ? var.ssh_key_name : (length(aws_key_pair.bastion) > 0 ? aws_key_pair.bastion[0].id : null)
+  key_name         = length(aws_key_pair.bastion) > 0 ? aws_key_pair.bastion[0].id : null
 
   root_block_device {
-    encrypted = var.encrypt_root_volume
+    encrypted   = var.encrypt_root_volume
+    volume_type = var.root_volume_type
   }
 
   lifecycle {
@@ -51,4 +51,3 @@ resource "aws_launch_configuration" "bastion" {
     ignore_changes = [image_id]
   }
 }
-
