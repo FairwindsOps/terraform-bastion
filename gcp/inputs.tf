@@ -104,7 +104,7 @@ variable "ssh_cidr_blocks" {
 
 variable "image_family" {
   description = "The family for the compute image. This module has assumptions about the OS being Ubuntu."
-  default     = "ubuntu-1804-lts"
+  default     = "ubuntu-2004-lts"
 }
 
 variable "image_project" {
