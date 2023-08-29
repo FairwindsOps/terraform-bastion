@@ -9,7 +9,7 @@ variable "region" {
 
 variable "availability_zones" {
   description = "The availability zones within $region where the Auto Scaling Group can place the bastion."
-  type        = list
+  type        = list(any)
 }
 
 variable "infrastructure_bucket" {
@@ -44,13 +44,13 @@ variable "remove_root_access" {
 }
 
 variable "additional_users" {
-  type        = list
+  type        = list(any)
   description = "Additional users to be created on the bastion. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized_keys will be output to ~/.ssh/authorized_keys using printf - multiple keys can be specified by including \\n in the string."
   default     = []
 }
 
 variable "additional_external_users" {
-  type        = list
+  type        = list(any)
   description = "Additional users to be created on the bastion. Works the same as additional_users, but adds users via a separate systemd unit file. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized_keys will be output to ~/.ssh/authorized_keys using printf - multiple keys can be specified by including \\n in the string."
   default     = []
 }
@@ -67,17 +67,17 @@ variable "machine_type" {
 
 variable "enable_secure_boot" {
   description = "Enables shielded instance secure boot which verifies the digital signature of all boot components, and halts the boot process if signature verification fails."
-  default = false
+  default     = false
 }
 
 variable "enable_confidential_compute" {
   description = "Defines whether the instance should have confidential compute enabled."
-  default = false
+  default     = false
 }
 
 variable "on_host_maintenance" {
   description = "Sets the scheduling.onHostMaintenance behavior. Must be either MIGRATE or TERMINATE"
-  default = "MIGRATE"
+  default     = "MIGRATE"
 }
 
 variable "dns_zone_name" {
@@ -112,3 +112,8 @@ variable "image_project" {
   default     = "ubuntu-os-cloud"
 }
 
+variable "vm_preemtible" {
+  type        = bool
+  description = "Boolean to set the VM to be preemptible. If true, the VM is set to SPOT. Otherwise defaults to Standard"
+  default     = false
+}
