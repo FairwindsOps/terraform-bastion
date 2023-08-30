@@ -21,33 +21,26 @@ data "template_file" "bastion_user_data" {
   }
 }
 
-resource "aws_launch_configuration" "bastion" {
-  # Generate a unique name for the Launch Configuration,
-  # so the Auto Scaling Group can be updated without conflict before destroying the previous Launch Configuration.
-  # Also see the related lifecycle block below.
-  name_prefix = "${var.bastion_name}-"
-
+resource "aws_launch_template" "bastion" {
+  name_prefix   = "${var.bastion_name}-"
   image_id      = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
-
-  iam_instance_profile        = aws_iam_instance_profile.bastion.name
-  security_groups             = [aws_security_group.bastion_ssh.id]
-  associate_public_ip_address = "true"
-
-  user_data_base64 = base64gzip(data.template_file.bastion_user_data.rendered)
-  key_name         = length(aws_key_pair.bastion) > 0 ? aws_key_pair.bastion[0].id : null
-
-  root_block_device {
-    encrypted   = var.encrypt_root_volume
-    volume_type = var.root_volume_type
+  iam_instance_profile {
+    name = aws_iam_instance_profile.bastion.name
+  }
+  network_interfaces {
+    associate_public_ip_address = true
+    security_groups             = [aws_security_group.bastion_ssh.id]
   }
 
-  lifecycle {
-    create_before_destroy = true
+  user_data = base64gzip(data.template_file.bastion_user_data.rendered)
+  key_name  = length(aws_key_pair.bastion) > 0 ? aws_key_pair.bastion[0].id : null
 
-    # DO not recreate the Launch Configuration if a newer AMI becomes available.
-    # `terrform taint` the Launch Configuration resource to force it to be recreated.
-    # In the future we may want to also include user-data in this list.
-    ignore_changes = [image_id]
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      encrypted   = var.encrypt_root_volume
+      volume_type = var.root_volume_type
+    }
   }
 }
