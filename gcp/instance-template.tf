@@ -32,10 +32,12 @@ resource "google_compute_instance_template" "bastion" {
   can_ip_forward       = false
 
   scheduling {
-    automatic_restart   = true
-    on_host_maintenance = var.on_host_maintenance
+    provisioning_model          = var.vm_preemtible ? "SPOT" : "STANDARD"
+    instance_termination_action = var.vm_preemtible ? "STOP" : null
+    preemptible                 = var.vm_preemtible ? true : false
+    automatic_restart           = var.vm_preemtible ? false : true
+    on_host_maintenance         = var.on_host_maintenance
   }
-
   disk {
     source_image = data.google_compute_image.ubuntu.self_link
     auto_delete  = true
