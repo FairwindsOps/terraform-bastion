@@ -33,7 +33,7 @@ resource "google_compute_instance_template" "bastion" {
 
   scheduling {
     provisioning_model          = var.vm_preemtible ? "SPOT" : "STANDARD"
-    instance_termination_action = var.vm_preemtible ? "STOP" : null
+    instance_termination_action = var.vm_preemtible ? "STOP" : "DELETE"
     preemptible                 = var.vm_preemtible ? true : false
     automatic_restart           = var.vm_preemtible ? false : true
     on_host_maintenance         = var.on_host_maintenance
