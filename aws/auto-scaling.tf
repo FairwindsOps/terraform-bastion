@@ -7,7 +7,7 @@ resource "aws_autoscaling_group" "bastion" {
   name = "asg-${aws_launch_template.bastion.id}"
   launch_template {
     name = aws_launch_template.bastion.name
-    version = "$Latest"
+    version = aws_launch_template.bastion.latest_version
   }
 
   min_size            = 1
