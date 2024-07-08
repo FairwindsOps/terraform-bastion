@@ -34,8 +34,6 @@ resource "aws_launch_template" "bastion" {
     name = aws_iam_instance_profile.bastion.name
   }
 
-  vpc_security_group_ids             = [aws_security_group.bastion_ssh.id]
-
   network_interfaces {
       associate_public_ip_address      = true
       security_groups = [aws_security_group.bastion_ssh.id]
