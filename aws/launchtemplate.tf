@@ -49,12 +49,14 @@ resource "aws_launch_template" "bastion" {
       volume_type = var.root_volume_type
     }
   }
+  
+  update_default_version = true
 
   lifecycle {
     create_before_destroy = true
 
-    # DO not recreate the Launch Configuration if a newer AMI becomes available.
-    # `terrform taint` the Launch Configuration resource to force it to be recreated.
+    # DO not recreate the Launch Template if a newer AMI becomes available.
+    # `terrform taint` the Launch Template resource to force it to be recreated.
     # In the future we may want to also include user-data in this list.
     ignore_changes = [image_id]
   }
