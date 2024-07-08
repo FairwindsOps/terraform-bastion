@@ -49,8 +49,6 @@ resource "aws_launch_template" "bastion" {
       volume_type = var.root_volume_type
     }
   }
-  
-  update_default_version = true
 
   lifecycle {
     create_before_destroy = true
