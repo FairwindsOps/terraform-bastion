@@ -38,5 +38,7 @@ resource "aws_autoscaling_group" "bastion" {
     # Allow end user to attach a load balancer with `aws_autoscaling_attachment`.
     ignore_changes = [load_balancers, target_group_arns]
   }
+
+  depends_on = aws_launch_template.bastion
 }
 
