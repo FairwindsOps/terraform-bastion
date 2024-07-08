@@ -30,9 +30,15 @@ resource "aws_launch_template" "bastion" {
   image_id      = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
 
-  iam_instance_profile               = aws_iam_instance_profile.bastion.name
+  iam_instance_profile {
+    name = aws_iam_instance_profile.bastion.name
+  }
+
   vpc_security_group_ids             = [aws_security_group.bastion_ssh.id]
-  associate_public_ip_address        = "true"
+
+  network_interfaces {
+      associate_public_ip_address      = true
+  }
 
   user_data = base64gzip(data.template_file.bastion_user_data.rendered)
   key_name         = length(aws_key_pair.bastion) > 0 ? aws_key_pair.bastion[0].id : null
