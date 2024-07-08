@@ -39,6 +39,6 @@ resource "aws_autoscaling_group" "bastion" {
     ignore_changes = [load_balancers, target_group_arns]
   }
 
-  depends_on = aws_launch_template.bastion
+  depends_on = [aws_launch_template.bastion]
 }
 
