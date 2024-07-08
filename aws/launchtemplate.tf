@@ -38,6 +38,7 @@ resource "aws_launch_template" "bastion" {
 
   network_interfaces {
       associate_public_ip_address      = true
+      security_groups = [aws_security_group.bastion_ssh.id]
   }
 
   user_data = base64gzip(data.template_file.bastion_user_data.rendered)
