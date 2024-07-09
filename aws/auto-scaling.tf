@@ -2,11 +2,11 @@
 # replacing an unhealthy EC2 instance or recovering from an
 # availability zone failure.
 resource "aws_autoscaling_group" "bastion" {
-  # The Launch Configuration ID is part of the Auto Scaling Group name,
-  # to force the ASG and its EC2 to be recreated.
-  name = "asg-${aws_launch_configuration.bastion.id}"
-
-  launch_configuration = aws_launch_configuration.bastion.name
+  name = "asg-${aws_launch_template.bastion.id}"
+  launch_template {
+    name = aws_launch_template.bastion.name
+    version = aws_launch_template.bastion.latest_version
+  }
 
   min_size            = 1
   max_size            = 1
@@ -29,7 +29,7 @@ resource "aws_autoscaling_group" "bastion" {
   }
 
 
-  # THis needs to match the Launch Configuration.
+  # This needs to match the LaunchTemplate.
   lifecycle {
     create_before_destroy = true
 
