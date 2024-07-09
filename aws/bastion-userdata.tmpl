@@ -28,7 +28,7 @@ info Triggering a job using at, to sleep then run apt-get upgrade...
 echo "sleep 120 ; apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade" |at now
 
 info Installing packages needed on the bastion...
-apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install awscli python unattended-upgrades
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install awscli unattended-upgrades
 
 info The infra bucket is: ${infrastructure_bucket} and the S3 key is ${infrastructure_bucket_bastion_key}
 
