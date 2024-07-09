@@ -2,8 +2,6 @@
 # replacing an unhealthy EC2 instance or recovering from an
 # availability zone failure.
 resource "aws_autoscaling_group" "bastion" {
-  # The Launch Configuration ID is part of the Auto Scaling Group name,
-  # to force the ASG and its EC2 to be recreated.
   name = "asg-${aws_launch_template.bastion.id}"
   launch_template {
     name = aws_launch_template.bastion.name
@@ -38,7 +36,5 @@ resource "aws_autoscaling_group" "bastion" {
     # Allow end user to attach a load balancer with `aws_autoscaling_attachment`.
     ignore_changes = [load_balancers, target_group_arns]
   }
-
-  depends_on = [aws_launch_template.bastion]
 }
 

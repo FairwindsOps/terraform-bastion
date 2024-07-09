@@ -22,9 +22,6 @@ data "template_file" "bastion_user_data" {
 }
 
 resource "aws_launch_template" "bastion" {
-  # Generate a unique name for the Launch Configuration,
-  # so the Auto Scaling Group can be updated without conflict before destroying the previous Launch Configuration.
-  # Also see the related lifecycle block below.
   name_prefix = "${var.bastion_name}-"
 
   image_id      = data.aws_ami.ubuntu.id
