@@ -28,6 +28,10 @@ resource "aws_autoscaling_group" "bastion" {
     }
   }
 
+  instance_refresh {
+    strategy = "Rolling"
+  }
+
 
   # This needs to match the LaunchTemplate.
   lifecycle {

@@ -6,9 +6,11 @@ function info {
   echo "user-data: $@"
 }
 
+# Getting IMDSv2 token
+TOKEN=`curl -X PUT http://169.254.169.254/latest/api/token -H "X-aws-ec2-metadata-token-ttl-seconds: 600"`
 
 info Getting the AWS availability zone and region
-EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+EC2_AVAIL_ZONE=`curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/availability-zone`
 EC2_REGION=`echo "$${EC2_AVAIL_ZONE:0:$${#EC2_AVAIL_ZONE}-1}"`
 info The EC2 region is: $${EC2_REGION}
 info The EC2 availability zone is: $${EC2_AVAIL_ZONE}
@@ -84,7 +86,7 @@ rm -f cloudwatch-agent.conf cloudwatch-agent.deb
 
 info Setting up DNS registration on boot
 info Downloading the cli53 tool
-curl -Lo /usr/local/bin/cli53 https://github.com/barnybug/cli53/releases/download/0.8.13/cli53-linux-amd64
+curl -Lo /usr/local/bin/cli53 https://github.com/barnybug/cli53/releases/download/0.8.22/cli53-linux-amd64
 chmod +x /usr/local/bin/cli53
 info Creating the /usr/local/bin/register-dns script using route53 zone ID ${zone_id}. . .
 cat <<'EOF' >/usr/local/bin/register-dns
@@ -92,7 +94,8 @@ cat <<'EOF' >/usr/local/bin/register-dns
 
 zone_id="${zone_id}"
 bastion_name="${bastion_name}"
-public_ip=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+TOKEN=`curl -X PUT http://169.254.169.254/latest/api/token -H "X-aws-ec2-metadata-token-ttl-seconds: 600"`
+public_ip=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
 zone_name=$(cli53 list -f csv |grep ${zone_id}|cut -d, -f2)
 
 echo $0 - registering $${bastion_name}.$${zone_name} to IP $${public_ip} using zone ID $${zone_id}...

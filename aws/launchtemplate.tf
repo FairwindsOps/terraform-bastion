@@ -36,6 +36,10 @@ resource "aws_launch_template" "bastion" {
       security_groups = [aws_security_group.bastion_ssh.id]
   }
 
+  metadata_options {
+    http_tokens = "required"
+  }
+
   user_data = base64gzip(data.template_file.bastion_user_data.rendered)
   key_name         = length(aws_key_pair.bastion) > 0 ? aws_key_pair.bastion[0].id : null
 
