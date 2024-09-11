@@ -102,6 +102,11 @@ variable "ami_filter_value" {
   default     = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
 }
 
+variable "custom_image_id" {
+  description = "Custom image ID. Use if you prefer a specific image to a standard Ubuntu image."
+  default = ""
+}
+
 variable "arn_prefix" {
   description = "The prefix to use for AWS ARNs."
   default     = "arn:aws"

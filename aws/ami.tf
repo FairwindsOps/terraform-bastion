@@ -1,4 +1,4 @@
-# This gets the latest AMI for Ubuntu 18.04
+# This gets the latest AMI for Ubuntu 22.04
 data "aws_ami" "ubuntu" {
   most_recent = true
 
