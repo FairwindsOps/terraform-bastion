@@ -80,47 +80,74 @@ See the file [example-usage](./example-usage) for an example of how to use this 
 
 The following requirements are needed by this module:
 
-- terraform (>= 0.13)
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 0.13)
 
-- aws (>=2.30.0)
+- <a name="requirement_aws"></a> [aws](#requirement\_aws) (>=2.30.0)
 
 ### Providers
 
 The following providers are used by this module:
 
-- aws (>=2.30.0)
+- <a name="provider_aws"></a> [aws](#provider\_aws) (>=2.30.0)
 
-- template
+- <a name="provider_template"></a> [template](#provider\_template)
+
+### Modules
+
+No modules.
+
+### Resources
+
+The following resources are used by this module:
+
+- [aws_autoscaling_group.bastion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) (resource)
+- [aws_cloudwatch_log_group.bastion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) (resource)
+- [aws_iam_instance_profile.bastion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) (resource)
+- [aws_iam_role.bastion_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)
+- [aws_iam_role_policy.bastion_logging](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) (resource)
+- [aws_iam_role_policy.bastion_route53](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) (resource)
+- [aws_iam_role_policy.bastion_s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) (resource)
+- [aws_key_pair.bastion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) (resource)
+- [aws_launch_template.bastion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) (resource)
+- [aws_s3_bucket_object.additional-external-users-script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) (resource)
+- [aws_security_group.bastion_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) (resource)
+- [aws_security_group_rule.bastion_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)
+- [aws_security_group_rule.bastion_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)
+- [aws_ami.ubuntu](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) (data source)
+- [aws_s3_bucket.infrastructure_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/s3_bucket) (data source)
+- [template_file.additional_external_user](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) (data source)
+- [template_file.additional_user](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) (data source)
+- [template_file.bastion_user_data](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) (data source)
 
 ### Required Inputs
 
 The following input variables are required:
 
-#### infrastructure\_bucket
+#### <a name="input_infrastructure_bucket"></a> [infrastructure\_bucket](#input\_infrastructure\_bucket)
 
 Description: An S3 bucket to store data that should persist on the bastion when it is recycled by the Auto Scaling Group, such as SSH host keys. This can be set in the environment via `TF_VAR_infrastructure_bucket`
 
 Type: `any`
 
-#### route53\_zone\_id
+#### <a name="input_route53_zone_id"></a> [route53\_zone\_id](#input\_route53\_zone\_id)
 
 Description: ID of the ROute53 zone for the bastion to add its host record.
 
 Type: `any`
 
-#### unattended\_upgrade\_email\_recipient
+#### <a name="input_unattended_upgrade_email_recipient"></a> [unattended\_upgrade\_email\_recipient](#input\_unattended\_upgrade\_email\_recipient)
 
 Description: An email address where unattended upgrade errors should be emailed. THis sets the option in /etc/apt/apt.conf.d/50unattended-upgrades
 
 Type: `any`
 
-#### vpc\_id
+#### <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id)
 
 Description: The VPC ID where the bastion and its security group will be created. This must match subnet IDs specified in the `vpc_subnet_ids` input.
 
 Type: `any`
 
-#### vpc\_subnet\_ids
+#### <a name="input_vpc_subnet_ids"></a> [vpc\_subnet\_ids](#input\_vpc\_subnet\_ids)
 
 Description: A list of subnet IDs where the Auto Scaling Group can place the bastion.
 
@@ -130,7 +157,7 @@ Type: `list`
 
 The following input variables are optional (have default values):
 
-#### additional\_external\_users
+#### <a name="input_additional_external_users"></a> [additional\_external\_users](#input\_additional\_external\_users)
 
 Description: Additional users to be created on the bastion. Works the same as additional\_users, but adds users via a separate systemd unit file. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized\_keys will be output to ~/.ssh/authorized\_keys using printf - multiple keys can be specified by including \n in the string.
 
@@ -138,23 +165,15 @@ Type: `list`
 
 Default: `[]`
 
-#### additional\_user\_data
+#### <a name="input_additional_user_data"></a> [additional\_user\_data](#input\_additional\_user\_data)
 
-Description: Content to be appended to UserData, which is run the first time the bastion EC2 boots, before additional users are created.
-
-Type: `string`
-
-Default: `""`
-
-#### additional\_user\_data\_end
-
-Description: Content to be appended to UserData, which is run the first time the bastion EC2 boots, after additional users are created.
+Description: Content to be appended to UserData, which is run the first time the bastion EC2 boots.
 
 Type: `string`
 
 Default: `""`
 
-#### additional\_users
+#### <a name="input_additional_users"></a> [additional\_users](#input\_additional\_users)
 
 Description: Additional users to be created on the bastion. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized\_keys will be output to ~/.ssh/authorized\_keys using printf - multiple keys can be specified by including \n in the string.
 
@@ -162,15 +181,15 @@ Type: `list`
 
 Default: `[]`
 
-#### ami\_filter\_value
+#### <a name="input_ami_filter_value"></a> [ami\_filter\_value](#input\_ami\_filter\_value)
 
 Description: The filter path for the AMI.
 
 Type: `string`
 
-Default: `"ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"`
+Default: `"ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"`
 
-#### ami\_owner\_id
+#### <a name="input_ami_owner_id"></a> [ami\_owner\_id](#input\_ami\_owner\_id)
 
 Description: The ID of the AMI's owner in AWS. The default is Canonical.
 
@@ -178,7 +197,7 @@ Type: `string`
 
 Default: `"099720109477"`
 
-#### ami\_owner\_id\_govcloud
+#### <a name="input_ami_owner_id_govcloud"></a> [ami\_owner\_id\_govcloud](#input\_ami\_owner\_id\_govcloud)
 
 Description: The ID of the AMI's owner in AWS GovCloud. This value is used automatically if the module's `arn_prefix` input variable is anything other than `arn:aws`. The default is Canonical.
 
@@ -186,7 +205,7 @@ Type: `string`
 
 Default: `"513442679011"`
 
-#### arn\_prefix
+#### <a name="input_arn_prefix"></a> [arn\_prefix](#input\_arn\_prefix)
 
 Description: The prefix to use for AWS ARNs.
 
@@ -194,7 +213,7 @@ Type: `string`
 
 Default: `"arn:aws"`
 
-#### bastion\_name
+#### <a name="input_bastion_name"></a> [bastion\_name](#input\_bastion\_name)
 
 Description: The name of the bastion EC2 instance, DNS hostname, CloudWatch Log Group, and the name prefix for other related resources.
 
@@ -202,7 +221,15 @@ Type: `string`
 
 Default: `"ro-bastion"`
 
-#### encrypt\_root\_volume
+#### <a name="input_custom_image_id"></a> [custom\_image\_id](#input\_custom\_image\_id)
+
+Description: Custom image ID. Use if you prefer a specific image to a standard Ubuntu image.
+
+Type: `string`
+
+Default: `""`
+
+#### <a name="input_encrypt_root_volume"></a> [encrypt\_root\_volume](#input\_encrypt\_root\_volume)
 
 Description: If true, encrypt the root ebs volume of the bastion
 
@@ -210,7 +237,15 @@ Type: `bool`
 
 Default: `true`
 
-#### infrastructure\_bucket\_bastion\_key
+#### <a name="input_extra_asg_tags"></a> [extra\_asg\_tags](#input\_extra\_asg\_tags)
+
+Description: Extra tags for the bastion autoscaling group
+
+Type: `list`
+
+Default: `[]`
+
+#### <a name="input_infrastructure_bucket_bastion_key"></a> [infrastructure\_bucket\_bastion\_key](#input\_infrastructure\_bucket\_bastion\_key)
 
 Description: The key; sub-directory in $infrastructure\_bucket where the bastion will be allowed to read and write. Do not specify a trailing slash. This allows sharing an S3 bucket among multiple invocations of this module.
 
@@ -218,15 +253,15 @@ Type: `string`
 
 Default: `"bastion"`
 
-#### instance\_type
+#### <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type)
 
 Description: The EC2 instance type of the bastion.
 
 Type: `string`
 
-Default: `"t2.micro"`
+Default: `"t3.micro"`
 
-#### log\_retention
+#### <a name="input_log_retention"></a> [log\_retention](#input\_log\_retention)
 
 Description: The number of days to retain logs in the CloudWatch Log Group.
 
@@ -234,23 +269,23 @@ Type: `string`
 
 Default: `"60"`
 
-#### remove\_root\_access
+#### <a name="input_remove_root_access"></a> [remove\_root\_access](#input\_remove\_root\_access)
 
-Description: Whether to remove root access from the ubuntu user. Set this to yes\|true\|1 to remove root access, or anything else to retain it.
+Description: Whether to remove root access from the ubuntu user. Set this to yes|true|1 to remove root access, or anything else to retain it.
 
 Type: `string`
 
 Default: `"true"`
 
-#### root\_volume\_type
+#### <a name="input_root_volume_type"></a> [root\_volume\_type](#input\_root\_volume\_type)
 
-Description: The root volume type for the bastion instance.
+Description: The root volume type for the bastion instance
 
 Type: `string`
 
 Default: `"gp3"`
 
-#### ssh\_cidr\_blocks
+#### <a name="input_ssh_cidr_blocks"></a> [ssh\_cidr\_blocks](#input\_ssh\_cidr\_blocks)
 
 Description: A list of CIDRs allowed to SSH to the bastion. Override the module default by specifying an empty list, []
 
@@ -264,7 +299,7 @@ Default:
 ]
 ```
 
-#### ssh\_public\_key\_file
+#### <a name="input_ssh_public_key_file"></a> [ssh\_public\_key\_file](#input\_ssh\_public\_key\_file)
 
 Description: The content of an existing SSH public key file, that will be used to create an AWS SSH Key Pair. Yes, this input has an unfortunate name.
 
@@ -272,7 +307,7 @@ Type: `string`
 
 Default: `""`
 
-#### unattended\_upgrade\_additional\_configs
+#### <a name="input_unattended_upgrade_additional_configs"></a> [unattended\_upgrade\_additional\_configs](#input\_unattended\_upgrade\_additional\_configs)
 
 Description: Additional configuration lines to add to /etc/apt/apt.conf.d/50unattended-upgrades
 
@@ -280,7 +315,7 @@ Type: `string`
 
 Default: `""`
 
-#### unattended\_upgrade\_reboot\_time
+#### <a name="input_unattended_upgrade_reboot_time"></a> [unattended\_upgrade\_reboot\_time](#input\_unattended\_upgrade\_reboot\_time)
 
 Description: The time that the bastion should reboot, when necessary, after an an unattended upgrade. This sets the option in /etc/apt/apt.conf.d/50unattended-upgrades
 
@@ -292,18 +327,17 @@ Default: `"21:30"`
 
 The following outputs are exported:
 
-#### autoscaling\_group\_arn
+#### <a name="output_autoscaling_group_arn"></a> [autoscaling\_group\_arn](#output\_autoscaling\_group\_arn)
 
 Description: The ARN of the autoscaling group
 
-#### autoscaling\_group\_id
+#### <a name="output_autoscaling_group_id"></a> [autoscaling\_group\_id](#output\_autoscaling\_group\_id)
 
 Description: The ID of the autoscaling group
 
-#### security\_group\_id
+#### <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id)
 
 Description: The ID of the bastion security group
-
 
 ## Contributing
 

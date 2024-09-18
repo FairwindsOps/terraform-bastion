@@ -24,7 +24,7 @@ data "template_file" "bastion_user_data" {
 resource "aws_launch_template" "bastion" {
   name_prefix = "${var.bastion_name}-"
 
-  image_id      = data.aws_ami.ubuntu.id
+  image_id      = var.custom_image_id != "" ? var.custom_image_id : data.aws_ami.ubuntu.id
   instance_type = var.instance_type
 
   iam_instance_profile {
@@ -53,10 +53,5 @@ resource "aws_launch_template" "bastion" {
 
   lifecycle {
     create_before_destroy = true
-
-    # DO not recreate the Launch Template if a newer AMI becomes available.
-    # `terrform taint` the Launch Template resource to force it to be recreated.
-    # In the future we may want to also include user-data in this list.
-    ignore_changes = [image_id]
   }
 }
