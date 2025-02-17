@@ -41,7 +41,9 @@ host 172.20.*.*
 You can now SSH directly to IP addresses within `172.20.0.0/16`, and your connection will be proxied through the bastion.
 
 
-### Accessing a Private Kubernetes API 
+### Accessing a Private Kubernetes API
+
+#### Non-EKS Clusters (like kops)
 
 You can proxy access to a private Kubernetes API through the bastion, instead of using a VPN.
 
@@ -54,6 +56,10 @@ ssh -L 8443:api.clustername.domain.com:443 ubuntu@bastion.domain.com
 In another terminal tab, edit your KubeConfig and replace `api.clustername.domain.com` with `127.0.0.1:8443` in the `server` line for your private cluster.
 
 With the above, as long as the SSH proxy connection remains active, you can use `kubectl` to access your private Kubernetes cluster. Close the SSH connection in the other terminal tab to stop proxying to the private API.
+
+#### EKS Clusters
+
+Certificates for EKS API endpoints will not be valid for the `127.0.0.1` address in the above example. You can use a [SOCKS5 Proxy](https://kubernetes.io/docs/tasks/extend-kubernetes/socks5-proxy-access-api/) to access these clusters.
 
 ### Use Sshuttle to get a VPN-like Experience
 
