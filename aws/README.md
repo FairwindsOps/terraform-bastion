@@ -115,7 +115,7 @@ The following resources are used by this module:
 - [aws_iam_role_policy.bastion_s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) (resource)
 - [aws_key_pair.bastion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) (resource)
 - [aws_launch_template.bastion](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) (resource)
-- [aws_s3_bucket_object.additional-external-users-script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) (resource)
+- [aws_s3_object.additional-external-users-script](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) (resource)
 - [aws_security_group.bastion_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) (resource)
 - [aws_security_group_rule.bastion_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)
 - [aws_security_group_rule.bastion_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) (resource)
