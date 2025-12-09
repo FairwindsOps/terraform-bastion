@@ -47,7 +47,7 @@ locals {
   additional-external-users-script-md5     = md5(local.additional-external-users-script-content)
 }
 
-resource "aws_s3_bucket_object" "additional-external-users-script" {
+resource "aws_s3_object" "additional-external-users-script" {
   bucket  = local.infrastructure_bucket.id
   key     = "${var.infrastructure_bucket_bastion_key}/additional-external-users"
   content = local.additional-external-users-script-content
