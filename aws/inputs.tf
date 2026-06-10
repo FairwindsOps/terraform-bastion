@@ -35,13 +35,13 @@ variable "remove_root_access" {
 }
 
 variable "additional_users" {
-  type        = list
+  type        = list(any)
   description = "Additional users to be created on the bastion. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized_keys will be output to ~/.ssh/authorized_keys using printf - multiple keys can be specified by including \\n in the string."
   default     = []
 }
 
 variable "additional_external_users" {
-  type        = list
+  type        = list(any)
   description = "Additional users to be created on the bastion. Works the same as additional_users, but adds users via a separate systemd unit file. Specify users as a list of maps. See an example in the `example-usage` file. Required map keys are `login` (user name) and `authorized_keys`. Optional map keys are `gecos` (full name), `supplemental_groups` (comma-separated), and `shell`. The authorized_keys will be output to ~/.ssh/authorized_keys using printf - multiple keys can be specified by including \\n in the string."
   default     = []
 }
@@ -72,7 +72,7 @@ variable "vpc_id" {
 }
 
 variable "vpc_subnet_ids" {
-  type        = list
+  type        = list(any)
   description = "A list of subnet IDs where the Auto Scaling Group can place the bastion."
 }
 
@@ -104,7 +104,7 @@ variable "ami_filter_value" {
 
 variable "custom_image_id" {
   description = "Custom image ID. Use if you prefer a specific image to a standard Ubuntu image."
-  default = ""
+  default     = ""
 }
 
 variable "arn_prefix" {
@@ -118,7 +118,7 @@ variable "encrypt_root_volume" {
 }
 
 variable "extra_asg_tags" {
-  type        = list
+  type        = list(any)
   description = "Extra tags for the bastion autoscaling group"
   default     = []
 }

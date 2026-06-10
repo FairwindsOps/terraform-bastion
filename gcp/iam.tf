@@ -6,9 +6,9 @@ resource "google_service_account" "bastion" {
 }
 
 resource "google_project_iam_member" "bastion_dns" {
-  role = "roles/dns.admin"
+  role    = "roles/dns.admin"
   project = data.google_project.project.id
-  member = "serviceAccount:${google_service_account.bastion.email}"
+  member  = "serviceAccount:${google_service_account.bastion.email}"
 }
 
 resource "google_storage_bucket_iam_member" "bastion" {
